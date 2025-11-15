@@ -6,6 +6,11 @@ import { useNavigate } from 'react-router-dom';
 import { API_BASE_URL, AUTH_STORAGE_KEY } from '../../config';
 import styles from './RegisterForm.module.css';
 
+const PASSWORD_ALLOWED_CHARACTERS_REGEX =
+  /^[a-zA-ZçğıöşüÇĞİÖŞÜ0-9!@#$%^&*()_+\-=\[\]{};':"\\|,.<>\/?]*$/;
+
+const PASSWORD_UPPERCASE_REGEX = /[A-ZÇĞİÖŞÜ]/;
+
 const schema = yup.object({
   name: yup
     .string()
@@ -34,11 +39,11 @@ const schema = yup.object({
     .required('Password is required')
     .min(8, 'Password must be at least 8 characters')
     .max(64, 'Password must be at most 64 characters')
-    .matches(/[A-Z]/, 'Password must contain at least one uppercase letter')
+    .matches(PASSWORD_UPPERCASE_REGEX, 'Password must contain at least one uppercase letter')
     .matches(/[0-9]/, 'Password must contain at least one number')
     .matches(/^\S*$/, 'Password cannot contain spaces')
     .matches(
-      /^[a-zA-Z0-9!@#$%^&*()_+\-=\[\]{};':"\\|,.<>\/?]*$/,
+      PASSWORD_ALLOWED_CHARACTERS_REGEX,
       'Password can only contain Latin letters, numbers, and symbols'
     ),
 });

@@ -10,28 +10,10 @@ import styles from './LoginForm.module.css';
 const schema = yup.object({
   email: yup
     .string()
-    .required('Email is required')
-    .matches(
-      /^[a-zA-Z0-9._%+-]+@[a-zA-Z0-9.-]+\.[a-zA-Z]{2,}$/,
-      'Invalid email format'
-    )
-    .test('single-at', 'Email must contain only one @', (value) => {
-      return (value.match(/@/g) || []).length === 1;
-    })
-    .test('dot-in-host', 'Email must contain a dot in the host part', (value) => {
-      const parts = value.split('@');
-      return parts.length === 2 && parts[1].includes('.');
-    }),
+    .required('Email is required'),
   password: yup
     .string()
-    .required('Password is required')
-    .min(8, 'Password must be at least 8 characters')
-    .max(64, 'Password must be at most 64 characters')
-    .matches(/^\S*$/, 'Password cannot contain spaces')
-    .matches(
-      /^[a-zA-Z0-9!@#$%^&*()_+\-=\[\]{};':"\\|,.<>\/?]*$/,
-      'Password can only contain Latin letters, numbers, and symbols'
-    ),
+    .required('Password is required'),
 });
 
 function LoginForm() {
