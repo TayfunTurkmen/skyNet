@@ -3,6 +3,8 @@ import { useNavigate } from 'react-router-dom';
 import styles from './HomePage.module.css';
 import { API_BASE_URL, AUTH_STORAGE_KEY } from '../../config';
 
+import Navbar from '../../components/Header/Navbar';
+
 function HomePage() {
   const navigate = useNavigate();
   const [isLoading, setIsLoading] = useState(false);
@@ -47,6 +49,9 @@ function HomePage() {
 
   return (
     <div className={styles.homePage}>
+      {/* 1. Navbar'ı En Üste Koyun */}
+      <Navbar />
+  
       <button
         type="button"
         className={styles.logoutButton}
@@ -55,7 +60,8 @@ function HomePage() {
       >
         {isLoading ? 'Logging out...' : 'Log Out'}
       </button>
-    </div>
+      </div>
+  
   );
 }
 

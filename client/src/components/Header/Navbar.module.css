@@ -1,0 +1,78 @@
+.taskPro{
+    width: 100%;    /*Uygulama alanını tanımlar*/
+    min-height: 100vh; /* Yüksekliği ekranı kaplayacak şekilde ayarlar */
+    background-color: #F6F6F7;
+    display: flex; /*  Sidebar ve Nav/Content'i yan yana dizer */
+    align-items: flex-start; /* İçeriği dikeyde üste hizalar */
+}
+.sidebar{
+    background-color: #FFFFFF;
+    width:260px;
+    min-height: 100vh;
+    flex-shrink: 0; /* Sidebar'ın daralmamasını sağlar */
+    
+}
+/* Ana Kapsayıcı: sidebarın sağında kalan 1180px genişliğinde, ortalanmış çubuk */
+.navbarContainer {
+    width: 100%; /* Genişliği tam yapar */
+    height: 68px;
+    background-color: #FFFFFF;
+
+    /*İçindeki menü içeriğini sağa itmek için Flex*/
+    display: flex;
+        align-items: center;
+        justify-content: flex-end;/* KRİTİK: Menüyü sağa dayar */
+        padding: 0 20px;
+}
+
+
+.navbarMenu { /* Navbar Menü (Tema ve Kullanıcıyı tutan iç div) */
+    display: flex;
+    align-items: center;
+    gap: 20px; /* Öğeler arasına boşluk */
+}
+
+
+/* Tema ve Kullanıcı Bloğu */
+.themeSelector,
+.userProfile {
+    display: flex;
+    align-items: center;
+}
+
+/*  Tema Dropdown (Görseldeki Ok ve Görünüm) */
+.themeDropdown {
+    appearance: menulist; /* Varsayılan ok simgesini geri getirir */
+    width: 25px;/*sadece oku göstermek içi genişliği küçük tuttuk*/
+    background: none;
+    border: none;
+    cursor: default;/* İşlevsiz olduğu için default cursor */
+    font-size: 14px;
+    color: #555555;
+    font-weight: 500;
+    padding: 0px 5px 0 0;
+}
+
+.themeLabel {
+    font-size: 14px;
+    color: #777777;
+    margin-right: 5px;
+}
+
+/* Kullanıcı Profili */
+.userName {
+    margin-right: 8px;
+    font-size: 14px;
+    font-weight: 500;
+    color: #555555;
+}
+
+.userAvatar {
+    width: 30px;
+    height: 30px;
+    border-radius: 50%;
+    object-fit: cover;
+    border: 1px solid #ccc;
+    background-color: #ccc;
+    color: #FFFFFF;
+}
