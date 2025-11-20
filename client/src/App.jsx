@@ -5,7 +5,6 @@ import AuthPage from './pages/AuthPage/AuthPage';
 import HomePage from './pages/HomePage/HomePage';
 import ResetPasswordPage from './pages/ResetPasswordPage/ResetPasswordPage';
 
-
 function App() {
   return (
     <Routes>
