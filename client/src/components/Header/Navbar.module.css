@@ -1,12 +1,12 @@
 .taskPro{
     width: 100%;    /*Uygulama alanını tanımlar*/
     min-height: 100vh; /* Yüksekliği ekranı kaplayacak şekilde ayarlar */
-    background-color: #F6F6F7;
+    background-color: var(--primary-bg-color);
     display: flex; /*  Sidebar ve Nav/Content'i yan yana dizer */
     align-items: flex-start; /* İçeriği dikeyde üste hizalar */
 }
 .sidebar{
-    background-color: #FFFFFF;
+    background-color:var(--sidebar-color);
     width:260px;
     min-height: 100vh;
     flex-shrink: 0; /* Sidebar'ın daralmamasını sağlar */
@@ -16,7 +16,7 @@
 .navbarContainer {
     width: 100%; /* Genişliği tam yapar */
     height: 68px;
-    background-color: #FFFFFF;
+    background-color: var(--secondary-bg-color);
 
     /*İçindeki menü içeriğini sağa itmek için Flex*/
     display: flex;
@@ -28,43 +28,66 @@
 
 .navbarMenu { /* Navbar Menü (Tema ve Kullanıcıyı tutan iç div) */
     display: flex;
-    align-items: center;
     gap: 20px; /* Öğeler arasına boşluk */
 }
 
 
 /* Tema ve Kullanıcı Bloğu */
-.themeSelector,
+.themeSelector{/* Ana Kapsayıcı: Menüyü pozisyonlamak için zorunlu */
+    display: flex;
+    flex-direction: column;
+    position: relative;
+    
+}
+.themeContent{
+    display: flex;
+    align-items: center;
+    height: 100%;
+   
+
+}
+.themeTittle{
+    margin-right: 8px;
+    font-size: 14px;
+    font-weight: 500;
+    font:poppins;
+    color: var(--text-icon-color);
+ display: flex;
+ align-items: center;
+}
+
+.themeArrowIcon{
+    color:var(--border-color);
+}
+.themeDropdown {
+    padding: 6px 12px;
+    border-radius: 8px;
+    border: 1px solid var(--border-color);
+    background-color: var(--primary-bg-color);
+    font-size: 14px;
+    color: var(--text-icon-color);
+    cursor: pointer;
+    box-shadow: 0px 4px 16px 0 var(--text-icon-color);
+    position: absolute;
+    top:100%;
+    width: 100px;
+    left: -25%;
+    
+}
+
+   
+
+/* Kullanıcı Profili */
 .userProfile {
     display: flex;
     align-items: center;
 }
 
-/*  Tema Dropdown (Görseldeki Ok ve Görünüm) */
-.themeDropdown {
-    appearance: menulist; /* Varsayılan ok simgesini geri getirir */
-    width: 25px;/*sadece oku göstermek içi genişliği küçük tuttuk*/
-    background: none;
-    border: none;
-    cursor: default;/* İşlevsiz olduğu için default cursor */
-    font-size: 14px;
-    color: #555555;
-    font-weight: 500;
-    padding: 0px 5px 0 0;
-}
-
-.themeLabel {
-    font-size: 14px;
-    color: #777777;
-    margin-right: 5px;
-}
-
-/* Kullanıcı Profili */
 .userName {
     margin-right: 8px;
     font-size: 14px;
     font-weight: 500;
-    color: #555555;
+    color: var(--text-icon-color);
 }
 
 .userAvatar {
@@ -72,7 +95,7 @@
     height: 30px;
     border-radius: 50%;
     object-fit: cover;
-    border: 1px solid #ccc;
-    background-color: #ccc;
-    color: #FFFFFF;
+    border: 1px solid var(--border-color);
+    background-color:var(--primary-bg-color);
+    color: var(--secondary-bg-color);
 }
