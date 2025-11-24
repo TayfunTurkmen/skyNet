@@ -10,6 +10,7 @@ import { fetchBoards, createBoard, updateBoard, deleteBoard, selectBoard } from 
 import { createColumn, deleteColumn, fetchColumns, updateColumn } from "../../redux/slices/columnsSlice.js";
 import { AUTH_STORAGE_KEY, CLOUDINARY_BASE_URL, API_BASE_URL } from "../../config";
 import styles from "./DashboardPage.module.css";
+import HomePage from "../HomePage/HomePage.jsx";
 
 function DashboardPage() {
   const dispatch = useDispatch();

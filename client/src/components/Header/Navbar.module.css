@@ -1,0 +1,94 @@
+.taskPro {
+  width: 100%; /*Uygulama alanını tanımlar*/
+  min-height: 100vh; /* Yüksekliği ekranı kaplayacak şekilde ayarlar */
+  background-color: var(--primary-bg-color);
+  display: flex; /*  Sidebar ve Nav/Content'i yan yana dizer */
+  align-items: flex-start; /* İçeriği dikeyde üste hizalar */
+}
+.sidebar {
+  background-color: var(--sidebar-color);
+  width: 260px;
+  min-height: 100vh;
+  flex-shrink: 0; /* Sidebar'ın daralmamasını sağlar */
+}
+/* Ana Kapsayıcı: sidebarın sağında kalan 1180px genişliğinde, ortalanmış çubuk */
+.navbarContainer {
+  width: 100%; /* Genişliği tam yapar */
+  height: 68px;
+  background-color: var(--secondary-bg-color);
+
+  /*İçindeki menü içeriğini sağa itmek için Flex*/
+  display: flex;
+  align-items: center;
+  justify-content: flex-end; /* KRİTİK: Menüyü sağa dayar */
+  padding: 0 20px;
+}
+
+.navbarMenu {
+  /* Navbar Menü (Tema ve Kullanıcıyı tutan iç div) */
+  display: flex;
+  gap: 20px; /* Öğeler arasına boşluk */
+}
+
+/* Tema ve Kullanıcı Bloğu */
+.themeSelector {
+  /* Ana Kapsayıcı: Menüyü pozisyonlamak için zorunlu */
+  display: flex;
+  flex-direction: column;
+  position: relative;
+}
+.themeContent {
+  display: flex;
+  align-items: center;
+  height: 100%;
+}
+.themeTittle {
+  margin-right: 8px;
+  font-size: 14px;
+  font-weight: 500;
+  font: poppins;
+  color: var(--text-icon-color);
+  display: flex;
+  align-items: center;
+}
+
+.themeArrowIcon {
+  color: var(--border-color);
+}
+.themeDropdown {
+  padding: 6px 12px;
+  border-radius: 8px;
+  border: 1px solid var(--border-color);
+  background-color: var(--primary-bg-color);
+  font-size: 14px;
+  color: var(--text-icon-color);
+  cursor: pointer;
+  box-shadow: 0px 4px 16px 0 var(--text-icon-color);
+  position: absolute;
+  top: 100%;
+  width: 100px;
+  left: -25%;
+}
+
+/* Kullanıcı Profili */
+.userProfile {
+  display: flex;
+  align-items: center;
+}
+
+.userName {
+  margin-right: 8px;
+  font-size: 14px;
+  font-weight: 500;
+  color: var(--text-icon-color);
+}
+
+.userAvatar {
+  width: 30px;
+  height: 30px;
+  border-radius: 50%;
+  object-fit: cover;
+  border: 1px solid var(--border-color);
+  background-color: var(--primary-bg-color);
+  color: var(--secondary-bg-color);
+}
