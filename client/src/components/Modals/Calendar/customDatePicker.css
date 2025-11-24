@@ -1,0 +1,145 @@
+:root {
+  --color-text-rgb: rgba(255, 255, 255, 0.8);
+  --color-modal-time: #151515;
+  --color-border-modal: #bedbb0;
+  --color-green: #bedbb0;
+  --color-modal-text-time: rgba(255, 255, 255, 0.5);
+  --color-green-border: rgba(190, 219, 176, 0.4);
+  --color-btn-text: #161616;
+  --color-green-dark: #9dc888;
+  --color-green-border: rgba(190, 219, 176, 0.4);
+  --color-violet: #5255bc;
+  --color-violet-border: rgba(82, 85, 188, 0.4);
+  --color-violet-dark: #7b7ede;
+  --calendar-week: rgba(255, 255, 255, 0.5);
+  --calendar-day: #fff;
+}
+
+.react-datepicker {
+  font-family: "Poppins", sans-serif;
+  font-size: 14px;
+  font-weight: 400;
+  background-color: var(--color-modal-time);
+  border: 1px solid var(--color-border-modal);
+  border-radius: 8px;
+  padding: 8px;
+  color: var(--color-text-base);
+  box-shadow: 0 10px 30px rgba(0, 0, 0, 0.5);
+}
+
+.react-datepicker__header {
+  background-color: transparent;
+  border: none;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  position: relative;
+}
+
+.react-datepicker__current-month,
+.react-datepicker-time__header,
+.react-datepicker-year-header {
+  font-weight: 400;
+  color: var(--color-text-rgb);
+}
+
+.react-datepicker__current-month {
+  margin-top: 0;
+  padding-top: 0;
+}
+
+.react-datepicker__current-month::after {
+  content: "";
+  display: block;
+  margin: 0 auto;
+  width: 202px;
+  height: 1px;
+  background-color: var(--modal-border-line);
+  margin-top: 14px;
+}
+
+.react-datepicker__navigation {
+  top: 18px;
+  margin-left: 6px;
+  margin-right: 6px;
+}
+
+.react-datepicker__day-names {
+  margin-top: 10px;
+  margin-bottom: -6px;
+}
+
+.react-datepicker__day-name {
+  font-weight: 500;
+  color: var(--color-text-rgb);
+  margin: 2px;
+}
+
+.react-datepicker__month {
+  margin-top: 0px;
+}
+
+.react-datepicker__day {
+  font-weight: 400;
+  background: transparent;
+  color: var(--color-text-rgb);
+  margin: 2px;
+}
+
+/* Bu kısmı güncelleyin */
+/* Seçili gün (SADECE bu kural aktif olmalı) */
+.react-datepicker__day--selected,
+.react-datepicker__day--keyboard-selected {
+  border-radius: 50% !important;
+  background-color: var(--color-green-dark) !important;
+  color: var(--color-text-rgb) !important;
+}
+
+/* Bugünün default seçili görünümü KURALINI KALDIRIN VEYA DEĞİŞTİRİN */
+/* react-datepicker, seçili gün yoksa bile bugüne varsayılan selected stili atar.
+   Bu nedenle, bu varsayılan today stilini kaldırıp, sadece seçilen günün görünmesini istiyoruz. */
+.react-datepicker__day--today {
+  /* Bu stil ayarlarını silin veya aşağıdaki gibi transparent yapın: */
+  border-radius: 50%; /* Bugün için varsayılan yuvarlaklığı korumak isterseniz bırakabilirsiniz */
+  background-color: transparent; /* ÖNEMLİ: Arka planı şeffaf yapın */
+  color: var(--color-text-rgb); /* Yazı rengini koruyun */
+}
+
+/* Dışarıdaki ayların seçili görünmemesi */
+.react-datepicker__day--outside-month.react-datepicker__day--selected {
+  background: transparent !important;
+  color: rgba(255, 255, 255, 0.5) !important;
+}
+
+.react-datepicker__day:hover,
+.react-datepicker__day--today:hover {
+  border-radius: 50% !important;
+  background-color: var(--color-green-dark) !important;
+  color: var(--color-text-rgb) !important;
+  box-shadow: none !important;
+  outline: none !important;
+}
+
+.react-datepicker__day--outside-month {
+  font-weight: 200;
+  opacity: 0.5;
+  pointer-events: none;
+  background: none;
+  color: rgba(255, 255, 255, 0.5);
+}
+
+/* disabled days */
+.react-datepicker__day--disabled {
+  color: grey;
+  pointer-events: none;
+  background: none !important;
+}
+
+.react-datepicker__day--disabled:hover {
+  background-color: transparent !important;
+}
+
+/* no trianble on the bottom */
+.react-datepicker__triangle {
+  display: none;
+}

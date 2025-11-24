@@ -6,7 +6,6 @@ import { useNavigate } from 'react-router-dom';
 import { API_BASE_URL, AUTH_STORAGE_KEY } from '../../config';
 import ForgotPasswordModal from '../ForgotPasswordModal/ForgotPasswordModal';
 import styles from './LoginForm.module.css';
-
 const schema = yup.object({
   email: yup
     .string()
@@ -61,7 +60,10 @@ function LoginForm() {
         }),
       );
 
-      navigate('/home');
+  
+      navigate('/dashboard', { replace: true });
+    
+
     } catch (error) {
       console.error('Login error:', error);
       setServerError('Unable to reach the server. Please try again.');

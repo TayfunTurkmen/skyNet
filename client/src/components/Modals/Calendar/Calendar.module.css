@@ -1,0 +1,57 @@
+:root {
+  --color-text-rgb: rgba(255, 255, 255, 0.8);
+  --color-modal-time: #151515;
+  --color-border-modal: #bedbb0;
+  --color-green: #bedbb0;
+  --color-modal-text-time: rgba(255, 255, 255, 0.5);
+  --color-green-border: rgba(190, 219, 176, 0.4);
+  --color-btn-text: #161616;
+  --color-green-dark: #9dc888;
+  --color-green-border: rgba(190, 219, 176, 0.4);
+  --color-violet: #5255bc;
+  --color-violet-border: rgba(82, 85, 188, 0.4);
+  --color-violet-dark: #7b7ede;
+}
+
+.customInput {
+  background: none;
+  border: none;
+  padding: 0;
+  color: var(--color-green);
+  font-family: "Poppins", sans-serif;
+  font-size: 14px;
+  font-weight: 500;
+  cursor: pointer;
+  display: flex;
+  align-items: center;
+  transition: color 0.3s ease-in-out;
+}
+
+.arrowIcon {
+  width: 18px;
+  height: 18px;
+  margin-left: 5px;
+  transition: all 0.3s ease-in-out;
+}
+
+.arrow {
+  width: 18px;
+  height: 18px;
+  color: var(--color-green);
+  transition: color 0.3s ease-in-out;
+}
+
+.arrowIcon.open {
+  transform: rotate(180deg);
+}
+
+.customInput:hover,
+.customInput:active,
+.customInput:hover .arrow,
+.customInput:active .arrow {
+  color: var(--color-green-dark);
+}
+
+.active {
+  color: var(--color-green-dark);
+}

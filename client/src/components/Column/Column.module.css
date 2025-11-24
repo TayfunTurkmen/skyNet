@@ -1,0 +1,149 @@
+/* Kolonun Dış Kutusu */
+.columnContainer {
+  min-width: 335px;
+  max-width: 335px;
+  padding: 0;
+  margin-right: 0;
+  display: flex;
+  flex-direction: column;
+  height: 100%;
+  max-height: 100%;
+  flex-shrink: 0;
+  overflow-x: hidden;
+  background-color: transparent;
+}
+
+/* Başlık Kutusu (Kart görünümü alacak) */
+.columnTitleContainer {
+  /* İstenen değişiklik: Arka plan rengi, radius ve padding */
+  background-color: #fff;
+  border-radius: 8px;
+  margin-bottom: 14px; /* Başlık kutusu ile kartlar arasına boşluk */
+  flex-shrink: 0; /* Daralmasını engelle */
+}
+
+/* Başlık ve Butonlar Alanı */
+.columnHeader {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin-bottom: 0; /* TitleContainer'ın padding'i kullanılacağı için 0 yaptık */
+  padding: 14px;
+}
+
+.columnTitle {
+  font-size: 14px;
+  font-weight: 500;
+  color: #161616;
+  margin-left: 14px;
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  max-width: 200px;
+}
+
+/* Aksiyon Butonları (Düzenle/Sil) */
+.columnActions {
+  display: flex;
+  gap: 8px;
+  align-items: center;
+}
+
+.editButton,
+.deleteButton {
+  background: none;
+  border: none;
+  cursor: pointer;
+  font-size: 14px;
+  padding: 4px;
+  /* İstenen değişiklik: İkon rengi */
+  color: #161616;
+  opacity: 0.6; /* Daha soluk görünmesi için (pasif gri) */
+  transition: color 0.2s, transform 0.1s, opacity 0.2s;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.editButton:hover {
+  /* İstenen değişiklik: Açık tema hover rengi */
+  color: #007bff;
+  opacity: 1;
+  transform: scale(1.1);
+}
+
+.deleteButton:hover {
+  /* İstenen değişiklik: Kırmızı hover rengi */
+  color: #ff4d4d;
+  opacity: 1;
+  transform: scale(1.1);
+}
+
+/* Kartların Listelendiği Alan */
+.cardsContainer {
+  flex-grow: 1;
+  overflow-y: auto;
+
+  display: flex;
+  flex-direction: column;
+  gap: 14px;
+  margin-bottom: 14px;
+
+  /* 💡 YENİ DÜZENLEME: Negatif marjin kaldırıldı. */
+  margin-right: 0;
+
+  /* Scroll bar'ın kendisi 6px, biz kart içeriği ile scroll arasına 8px boşluk istiyoruz.
+     Bu nedenle 8px dolgu yeterlidir. */
+  padding-right: 2px;
+
+  scrollbar-width: thin;
+  scrollbar-color: #c0c0c0 #fcfcfc; /* Başlık arka planına uygun renkler */
+}
+
+.cardsContainer::-webkit-scrollbar {
+  width: 6px;
+}
+.cardsContainer::-webkit-scrollbar-track {
+  background: transparent;
+  border-radius: 10px;
+}
+.cardsContainer::-webkit-scrollbar-thumb {
+  background-color: #c0c0c0;
+  border-radius: 10px;
+}
+
+/* Kart Yok Mesajı */
+.noCardsText {
+  font-size: 12px;
+  color: #4b5563; /* Koyu gri renk */
+  text-align: center;
+  margin-top: 20px;
+  font-style: italic;
+}
+
+/* Kart Ekle Butonu */
+.addCardButtonContainer {
+  margin-top: auto;
+  flex-shrink: 0;
+}
+
+.addCardButton {
+  width: 100%;
+  padding: 14px;
+  background-color: #bedbb0;
+  color: #121212;
+  border: none;
+  border-radius: 8px;
+  font-weight: 500;
+  font-size: 14px;
+  cursor: pointer;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 8px;
+  transition: opacity 0.2s;
+}
+
+.addCardButton:hover {
+  background-color: #9dc888;
+}

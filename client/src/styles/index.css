@@ -16,7 +16,8 @@
   --accent-green-light: #d0ead0;
   --border-color: #3e3e3e;
   --error-color: #ff4444;
-  --font-family: 'Poppins', -apple-system, BlinkMacSystemFont, 'Segoe UI', 'Roboto', 'Oxygen', 'Ubuntu', 'Cantarell', 'Fira Sans', 'Droid Sans', 'Helvetica Neue', sans-serif;
+  --font-family: "Poppins", -apple-system, BlinkMacSystemFont, "Segoe UI", "Roboto", "Oxygen", "Ubuntu", "Cantarell",
+    "Fira Sans", "Droid Sans", "Helvetica Neue", sans-serif;
 }
 
 body {
@@ -48,34 +49,32 @@ a {
   color: inherit;
 }
 
-
 body.light {
-  --sidebar-color: #FFFFFF; /* Sidebar Arka Plan Rengi */
-    --primary-bg-color: #F6F6F7; /* Ana Arka Plan: Kartların arkasındaki alan */
-    --secondary-bg-color: #FCFCFC; /* İkincil Arka Plan: Sidebar ve kartların içi */
-    --accent-color: #5EAB73; /* Butonlar ve Vurgu Rengi: Canlı yeşil butonlar */
-    --border-color: #EBEBEB; /* Kenarlık Rengi: Kart kenarları, inputlar */
-    --text-icon-color: #161616; /* Genel Metin ve İkon Rengi (Tam opaklık önerilir) */
-    --low-priority-color: #BEDBB0; /* Ek: Eğer 'Low' etiketine özel bir renk gerekiyorsa */
-  }
+  --sidebar-color: #ffffff; /* Sidebar Arka Plan Rengi */
+  --primary-bg-color: #f6f6f7; /* Ana Arka Plan: Kartların arkasındaki alan */
+  --secondary-bg-color: #fcfcfc; /* İkincil Arka Plan: Sidebar ve kartların içi */
+  --accent-color: #5eab73; /* Butonlar ve Vurgu Rengi: Canlı yeşil butonlar */
+  --border-color: #ebebeb; /* Kenarlık Rengi: Kart kenarları, inputlar */
+  --text-icon-color: #161616; /* Genel Metin ve İkon Rengi (Tam opaklık önerilir) */
+  --low-priority-color: #bedbb0; /* Ek: Eğer 'Low' etiketine özel bir renk gerekiyorsa */
+}
 
 body.dark {
   --sidebar-color: #121212; /* Sidebar Arka Plan Rengi */
-  --primary-bg-color: #1F1F1F;
+  --primary-bg-color: #1f1f1f;
   --secondary-bg-color: #161616;
-  --accent-color: #5EAB73; /* Butonlar ve Birincil Vurgu Rengi */
-  --low-priority-color: #BEDBB0;/* Düşük Öncelik Etiketi Rengi */
-  --border-color: #4A4A4A; /* Kenarlık Rengi (Eski --border-bg yerine) */
-  --text-icon-color: #FFFFFF;
+  --accent-color: #5eab73; /* Butonlar ve Birincil Vurgu Rengi */
+  --low-priority-color: #bedbb0; /* Düşük Öncelik Etiketi Rengi */
+  --border-color: #4a4a4a; /* Kenarlık Rengi (Eski --border-bg yerine) */
+  --text-icon-color: #ffffff;
 }
 
 body.violet {
- 
-  --primary-bg-color:#ECEDFD;
-  --secondary-bg-color: #FFFFFF;
-  --sidebar-color: #5255BC; /* Sidebar Arka Plan Rengi */
-  --accent-color: #5255BC; /* Butonlar ve Birincil Vurgu Rengi */
-  --low-priority-color: #B8BCFD; /* Düşük Öncelik Etiketi Rengi */
-  --border-color: #EBEBEB; /* Kenarlık Rengi (Eski --border-bg yerine) */
+  --primary-bg-color: #ecedfd;
+  --secondary-bg-color: #ffffff;
+  --sidebar-color: #5255bc; /* Sidebar Arka Plan Rengi */
+  --accent-color: #5255bc; /* Butonlar ve Birincil Vurgu Rengi */
+  --low-priority-color: #b8bcfd; /* Düşük Öncelik Etiketi Rengi */
+  --border-color: #ebebeb; /* Kenarlık Rengi (Eski --border-bg yerine) */
   --text-icon-color: #161616;
 }

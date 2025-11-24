@@ -1,0 +1,95 @@
+.container {
+  width: 212px;
+  background: #1F1F1F;
+  margin: 24px;
+  padding: 20px;
+  border-radius: 8px;
+  cursor: pointer;
+  color: white;
+  font-family: sans-serif;
+  box-sizing: border-box; /* Padding taşmasın */
+}
+
+.plantImage {
+  margin-bottom: 14px;
+  display: block;
+}
+
+.text {
+  font-size: 14px;
+  line-height: 1.5;
+  margin-bottom: 18px;
+}
+
+.highlight {
+  color: #BEDBB0;
+  font-weight: bold;
+}
+
+.helpLink {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  font-size: 12px;
+  font-weight: 600;
+  color: white;
+  text-decoration: none;
+}
+
+/* --- MODAL STİLLERİ --- */
+.modalBackdrop {
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100vw;
+  height: 100vh;
+  background-color: rgba(0, 0, 0, 0.7);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  z-index: 1000;
+}
+
+.modalContent {
+  width: 400px;
+  background-color: #151515; /* Koyu tema uyumu */
+  padding: 24px;
+  border-radius: 8px;
+  box-shadow: 0 10px 25px rgba(0,0,0,0.5);
+  color: #fff;
+}
+
+.modalTitle {
+  margin-top: 0;
+  margin-bottom: 24px;
+  font-size: 18px;
+}
+
+.input, .textarea {
+  width: 100%;
+  padding: 12px;
+  background-color: #1F1F1F;
+  border: 1px solid #BEDBB0;
+  border-radius: 8px;
+  color: #fff;
+  font-size: 14px;
+  box-sizing: border-box;
+  margin-bottom: 16px;
+  outline: none;
+}
+
+.sendButton {
+  width: 100%;
+  padding: 12px;
+  background-color: #BEDBB0;
+  color: #121212;
+  border: none;
+  border-radius: 8px;
+  font-weight: 600;
+  cursor: pointer;
+}
+
+.sendButton:disabled {
+  opacity: 0.7;
+  cursor: not-allowed;
+}
