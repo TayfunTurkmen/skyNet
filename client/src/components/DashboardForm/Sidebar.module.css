@@ -1,0 +1,300 @@
+/* --- 1. GENEL AYARLAR (Tüm Ekranlar İçin Ortak) --- */
+.sidebar {
+  width: 260px;
+  background-color: #121212;
+  height: 100vh;
+  display: flex;
+  flex-direction: column;
+  padding: 24px 0;
+  color: #ffffff;
+  border-right: 1px solid rgba(255, 255, 255, 0.1);
+  box-sizing: border-box;
+  
+  /* Geçiş Animasyonu (Yumuşak açılma için) */
+  transition: transform 0.3s ease-in-out;
+  z-index: 100; /* Diğer içeriklerin üstünde */
+}
+
+/* --- 2. TABLET VE MOBİL (1440px'den Küçükse) --- */
+@media (max-width: 1439px) {
+  .sidebar {
+    position: fixed; /* Sayfanın üstüne binsin */
+    top: 0;
+    left: 0;
+    /* Varsayılan olarak ekranın soluna gizle (-100%) */
+    transform: translateX(-100%); 
+  }
+
+  /* JS ile 'open' sınıfı eklendiğinde ekrana getir */
+  .sidebar.open {
+    transform: translateX(0);
+  }
+
+  /* Arka Plan Karartması (Backdrop) */
+  .backdrop {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100vw;
+    height: 100vh;
+    background-color: rgba(0, 0, 0, 0.5); /* Yarı saydam siyah */
+    z-index: 90; /* Sidebar'ın bir tık altında */
+    opacity: 0;
+    pointer-events: none; /* Kapalıyken tıklanamasın */
+    transition: opacity 0.3s ease;
+  }
+
+  /* Backdrop Açıkken */
+  .backdrop.backdropOpen {
+    opacity: 1;
+    pointer-events: auto; /* Tıklanabilir olsun (kapatmak için) */
+  }
+}
+
+/* --- 3. DESKTOP (1440px ve Üzeri) --- */
+@media (min-width: 1440px) {
+  .sidebar {
+    position: static; /* Normal akışta kalsın */
+    transform: none !important; /* Hep görünür */
+    flex-shrink: 0;
+  }
+
+  /* Desktopta karartmaya gerek yok */
+  .backdrop {
+    display: none;
+  }
+}
+
+/* --- İÇERİK STİLLERİ (Değişmedi) --- */
+.logoContainer {
+   padding: 0 24px;
+   display: flex;
+   align-items: center;
+   gap: 10px;
+   margin-bottom: 60px;
+ }
+.logoBox {
+   width: 32px;
+   height: 32px;
+   background-color: #1f1f1f;
+   border-radius: 8px;
+   display: flex;
+   justify-content: center;
+   align-items: center;
+ }
+.logoIcon {
+   width: 20px;
+   height: 20px;
+   fill: #121212;
+ }
+.appName {
+   font-size: 16px;
+   font-weight: 600;
+   color: #fff;
+ }
+.boardsTitle {
+   font-size: 12px;
+   color: rgba(255, 255, 255, 0.5);
+   padding: 0 24px;
+   margin-bottom: 8px;
+ }
+
+.createBoardContainer {
+   padding: 0 24px;
+   margin-bottom: 40px;
+   box-sizing: border-box;
+ }
+.createButton {
+   width: 100%;
+   background: none;
+   border: none;
+   border-top: 1px solid rgba(255, 255, 255, 0.1);
+   border-bottom: 1px solid rgba(255, 255, 255, 0.1);
+   padding: 14px 0;
+   display: flex;
+   align-items: center;
+   justify-content: space-between;
+   cursor: pointer;
+   color: #ffffff;
+   font-size: 14px;
+   font-weight: 500;
+   text-align: left;
+   transition: opacity 0.2s;
+ }
+.createButton:hover {
+   opacity: 0.8;
+ }
+.createText {
+   line-height: 1.2;
+   margin-right: 10px;
+ }
+.plusIconBox {
+   width: 40px;
+   height: 36px;
+   background-color: #BEDBB0;
+   border-radius: 8px;
+   display: flex;
+   justify-content: center;
+   align-items: center;
+   flex-shrink: 0;
+ }
+.createButton:hover .plusIconBox {
+   background-color: #9dc28d;
+ }
+.plusIconBox svg path {
+   stroke: #121212;
+ }
+
+.boardList {
+   display: flex;
+   flex-direction: column;
+   flex-grow: 1;
+   overflow-y: auto;
+   gap: 4px;
+   scrollbar-width: thin;
+   scrollbar-color: #4a4a4a #1f1f1f;
+ }
+.boardList::-webkit-scrollbar {
+   width: 6px;
+ }
+.boardList::-webkit-scrollbar-track {
+   background: #1f1f1f;
+ }
+.boardList::-webkit-scrollbar-thumb {
+   background-color: #4a4a4a;
+   border-radius: 10px;
+ }
+
+.boardItem {
+   position: relative;
+   display: flex;
+   align-items: center;
+   justify-content: space-between;
+   padding: 20px 24px;
+   cursor: pointer;
+   transition: background-color 0.2s;
+ }
+.boardItem:hover {
+   background-color: #1F1F1F;
+ }
+.boardLink {
+   display: flex;
+   align-items: center;
+   gap: 8px;
+   text-decoration: none;
+   color: rgba(255, 255, 255, 0.5);
+   font-size: 14px;
+   font-weight: 500;
+   flex: 1;
+   min-width: 0;
+   margin-right: 5px;
+ }
+.boardIcon {
+   display: flex;
+   align-items: center;
+   justify-content: center;
+   flex-shrink: 0;
+   color: inherit;
+ }
+.boardTitleText {
+   white-space: nowrap;
+   overflow: hidden;
+   text-overflow: ellipsis;
+   max-width: 130px;
+ }
+
+.boardItem.active {
+   background-color: #1F1F1F;
+ }
+.boardItem.active .boardLink {
+   color: #ffffff;
+ }
+.boardItem.active .boardIcon {
+   color: #ffffff;
+ }
+.boardItem.active::after {
+   content: "";
+   position: absolute;
+   right: 0;
+   top: 0;
+   height: 100%;
+   width: 4px;
+   background-color: #BEDBB0;
+   border-radius: 4px 0 0 4px;
+ }
+
+.actions {
+   display: flex;
+   align-items: center;
+   gap: 4px;
+   margin-left: auto;
+   flex-shrink: 0;
+ }
+.actionBtn {
+   background: none;
+   border: none;
+   color: rgba(255, 255, 255, 0.5);
+   cursor: pointer;
+   padding: 4px;
+   display: flex;
+   align-items: center;
+   justify-content: center;
+   transition: color 0.2s, transform 0.1s;
+ }
+.actionBtn:hover {
+   color: #ffffff;
+   transform: scale(1.1);
+ }
+.favActive {
+   color: #BEDBB0 !important;
+   opacity: 1 !important;
+ }
+.loadingText, .noBoardsText {
+   padding: 0 24px;
+   font-size: 14px;
+   color: rgba(255, 255, 255, 0.5);
+   text-align: center;
+ }
+
+
+
+
+
+
+/* client/src/components/Sidebar.module.css */
+
+.logoutButton {
+  display: flex;
+
+  align-items: center;
+
+  gap: 12px; /* İkon ve yazı arasındaki boşluk (Görsele göre ayarlandı) */
+  
+  width: 100%;
+  padding: 12px 24px; /* Buton iç boşlukları */
+  margin-top: 10px;
+  margin-bottom: 24px;
+  
+  background: none;
+  border: none;
+  cursor: pointer;
+  
+  /* YAZI RENGİ: Beyaz */
+  color: #ffffff; 
+  
+  font-size: 16px;
+  font-weight: 600;
+  text-align: left;
+  transition: opacity 0.2s;
+}
+
+/* İKON RENGİ: Yeşil (#BEDBB0) */
+/* SvgIcon bileşeninin içindeki svg'yi hedefler */
+.logoutButton svg {
+  color: #BEDBB0; 
+}
+
+/* Hover (Üzerine gelince) Efekti */
+.logoutButton:hover {
+  opacity: 0.8; /* Hafifçe saydamlaşarak tepki verin */
+}

@@ -1,17 +1,14 @@
 .homePage {
   min-height: 100vh;
   display: flex;
-  flex-direction: column;
-  align-items: flex-end;
-  justify-content: flex-start;
-  background: #F6F6F7;
-  padding: 0;
-  width: 100%;
-  position:relative;
+  align-items: center;
+  justify-content: center;
+  background: linear-gradient(180deg, var(--dark-bg) 0%, var(--dark-bg-alt) 100%);
+  padding: 40px;
 }
 
 .logoutButton {
-  
+  min-width: 200px;
   padding: 16px 32px;
   border-radius: 16px;
   background-color: var(--accent-green);
@@ -20,11 +17,6 @@
   font-weight: 600;
   border: none;
   transition: opacity 0.2s ease, transform 0.2s ease;
-  position: absolute;
-    left: 20px;
-    /* Soldan biraz boşluk */
-    bottom: 20px;
-    /* Alttan biraz boşluk */
 }
 
 .logoutButton:hover:not(:disabled) {

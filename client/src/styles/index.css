@@ -48,34 +48,3 @@ a {
   color: inherit;
 }
 
-
-body.light {
-  --sidebar-color: #FFFFFF; /* Sidebar Arka Plan Rengi */
-    --primary-bg-color: #F6F6F7; /* Ana Arka Plan: Kartların arkasındaki alan */
-    --secondary-bg-color: #FCFCFC; /* İkincil Arka Plan: Sidebar ve kartların içi */
-    --accent-color: #5EAB73; /* Butonlar ve Vurgu Rengi: Canlı yeşil butonlar */
-    --border-color: #EBEBEB; /* Kenarlık Rengi: Kart kenarları, inputlar */
-    --text-icon-color: #161616; /* Genel Metin ve İkon Rengi (Tam opaklık önerilir) */
-    --low-priority-color: #BEDBB0; /* Ek: Eğer 'Low' etiketine özel bir renk gerekiyorsa */
-  }
-
-body.dark {
-  --sidebar-color: #121212; /* Sidebar Arka Plan Rengi */
-  --primary-bg-color: #1F1F1F;
-  --secondary-bg-color: #161616;
-  --accent-color: #5EAB73; /* Butonlar ve Birincil Vurgu Rengi */
-  --low-priority-color: #BEDBB0;/* Düşük Öncelik Etiketi Rengi */
-  --border-color: #4A4A4A; /* Kenarlık Rengi (Eski --border-bg yerine) */
-  --text-icon-color: #FFFFFF;
-}
-
-body.violet {
- 
-  --primary-bg-color:#ECEDFD;
-  --secondary-bg-color: #FFFFFF;
-  --sidebar-color: #5255BC; /* Sidebar Arka Plan Rengi */
-  --accent-color: #5255BC; /* Butonlar ve Birincil Vurgu Rengi */
-  --low-priority-color: #B8BCFD; /* Düşük Öncelik Etiketi Rengi */
-  --border-color: #EBEBEB; /* Kenarlık Rengi (Eski --border-bg yerine) */
-  --text-icon-color: #161616;
-}

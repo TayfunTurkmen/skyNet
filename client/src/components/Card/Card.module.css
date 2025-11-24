@@ -1,0 +1,154 @@
+.cardContainer {
+  background-color: #ffffff;
+  border-radius: 8px;
+  /* Padding'i düşürdük, Title ve Description kendisi yeterli boşluk yaratacak. */
+  padding: 16px;
+  margin-bottom: 14px;
+  box-shadow: 0 1px 3px rgba(0, 0, 0, 0.05);
+  transition: box-shadow 0.2s ease, border 0.2s ease;
+  border: 1px solid #e0e0e0;
+  border-left: none;
+  position: relative;
+  /* 💡 Değişiklik: priorityBar'ı yerleştirmek için padding-left'i düşürdük */
+  padding: 16px 16px 16px 20px;
+  /* 💡 Eklenen Özellik: Köşe yuvarlaklığı için */
+  overflow: hidden;
+  flex-shrink: 0;
+}
+
+.cardContainer:hover {
+  border-color: #c0c0c0;
+  box-shadow: 0 2px 6px rgba(0, 0, 0, 0.1);
+}
+
+.priorityBar {
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 4px;
+  height: 100%;
+  border-radius: 8px 0 0 8px;
+}
+
+/* cardContent kaldırıldı, kart içeriği doğrudan cardContainer'da */
+
+.cardTitle {
+  font-weight: 700;
+  font-size: 14px;
+  color: #1f2937;
+  margin-bottom: 4px;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  display: -webkit-box;
+  -webkit-line-clamp: 2;
+  -webkit-box-orient: vertical;
+}
+.cardDescription {
+  font-size: 12px;
+  color: #4b5563;
+  margin-bottom: 12px;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  display: -webkit-box;
+  -webkit-line-clamp: 3;
+  -webkit-box-orient: vertical;
+}
+/* Yatay çizgi için ayırıcı */
+.separator {
+  height: 1px;
+  background-color: #e5e7eb;
+  /* 💡 Değişiklik: Yatay çizginin soldaki çubuğu hesaba katması için */
+  margin: 12px 0 12px -4px;
+}
+
+.metaHeader {
+  font-size: 8px;
+  color: #9ca3af;
+  font-weight: 500;
+  margin-bottom: 4px;
+}
+
+.cardMeta {
+  display: flex;
+  /* Aksiyon butonları artık burada değil, absolute konumlandırılacak */
+  justify-content: flex-start;
+  align-items: flex-start; /* Başlıklar üstte hizalanmalı */
+  margin-top: 0;
+  font-size: 0.875rem;
+  position: relative; /* Butonların konumlandırılması için */
+}
+
+.metaLeft {
+  display: flex;
+  /* 💡 Değişiklik: Öncelik ve Son Tarih arasında daha fazla boşluk */
+  gap: 14px;
+  align-items: flex-start; /* Başlıkları hizalamak için */
+}
+
+/* 💡 Yeni CSS: Öncelik/Tarih kapsayıcısı (başlık ve değer alt alta) */
+.metaItem {
+  display: flex;
+  flex-direction: column;
+}
+
+.priorityContainer {
+  display: flex;
+  align-items: center;
+  gap: 6px;
+  min-width: 0;
+}
+.priorityDot {
+  width: 10px;
+  height: 10px;
+  border-radius: 50%;
+  flex-shrink: 0;
+}
+.priorityText {
+  color: #1f2937; /* Koyu metin */
+  font-size: 10px;
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+}
+.deadlineText {
+  color: #1f2937; /* Koyu metin */
+  font-size: 10px;
+  flex-shrink: 0;
+}
+
+/* 💡 Yeni CSS: Aksiyon Butonları (Absolute Konumlandırma) */
+.actionButtons {
+  position: absolute;
+  top: 10px; /* Yatay çizginin hemen altına */
+  right: 0; /* Kartın sağına */
+  display: flex;
+  gap: 8px;
+  align-items: center;
+}
+
+.bellButton {
+  color: #bedbb0;
+}
+
+.actionButton {
+  color: #9ca3af; /* Soluk gri ikonlar */
+  transition: color 0.2s ease;
+}
+
+/* İkonların görünümü için metinleri kaldıracağız */
+.actionButton > span {
+  display: none;
+}
+
+.actionButton:hover,
+.deleteButton:hover {
+  color: #1f2937;
+}
+
+.bellButton:hover {
+  color: #9dc888;
+}
+
+.todayDeadline {
+  display: none;
+}

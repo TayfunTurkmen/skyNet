@@ -1,0 +1,132 @@
+.modalBackdrop {
+  position: fixed;
+   top: 0;
+   left: 0;
+   width: 100vw;
+   height: 100vh;
+
+  background-color: rgba(0, 0, 0, 0.7);
+
+  display: flex;
+   align-items: center;
+   justify-content: center;
+   z-index: 9999;
+
+}
+.modalContent {
+  width: 350px;
+   max-width: 90%;
+   background-color: #151515;
+   padding: 24px;
+
+  border-radius: 8px;
+   box-shadow: 0 10px 25px rgba(0, 0, 0, 0.5);
+
+  position: relative;
+   color: #ffffff;
+
+}
+.title { 
+  margin: 0 0 24px 0;
+
+  font-size: 18px;
+
+  font-weight: 600;
+
+}
+.closeButton { 
+  position: absolute;
+  top: 14px;
+  right: 14px;
+  background: none;
+  border: none;
+  color: #fff;
+  cursor: pointer; 
+  opacity: 0.7; 
+}
+.closeButton:hover { 
+  opacity: 1; 
+}
+.input { width: 100%; 
+  padding: 12px; 
+  margin-bottom: 24px; 
+  background-color: #1F1F1F; 
+  border: 1px solid #BEDBB0; 
+  border-radius: 8px; 
+  color: #fff; 
+  font-size: 14px; 
+  box-sizing: border-box; 
+  outline: none; 
+}
+.input:focus { 
+  box-shadow: 0 0 0 1px #BEDBB0; 
+}
+.subTitle { font-size: 14px; 
+  font-weight: 600; 
+  margin-bottom: 14px; 
+  color: #fff; 
+}
+.iconGroup { 
+  display: flex; 
+  gap: 10px; 
+  margin-bottom: 24px; 
+}
+.iconOption { 
+  cursor: pointer; 
+  color: #888; 
+  transition: all 0.2s; 
+  display: flex; 
+  align-items: center; 
+  justify-content: center; 
+}
+.iconOption.selected { 
+  color: #fff; 
+  transform: scale(1.1); 
+}
+.backgroundGrid { 
+  display: grid; 
+  grid-template-columns: repeat(8, 1fr); 
+  gap: 4px; 
+  margin-bottom: 40px; 
+}
+.bgOption { width: 28px; 
+  height: 28px; 
+  border-radius: 6px; 
+  cursor: pointer; 
+  background-size: cover; 
+  background-position: center; 
+  border: 2px solid transparent; 
+  transition: transform 0.2s; 
+}
+.bgOption.selected { border-color: #fff; 
+  transform: scale(1.1); 
+}
+.errorText { color: #ff4d4d; 
+  font-size: 12px; 
+  margin-bottom: 10px; 
+}
+.createButton { width: 100%; 
+  height: 48px; 
+  background-color: #BEDBB0; 
+  color: #121212; 
+  border: none; 
+  border-radius: 8px; 
+  font-weight: 600; 
+  font-size: 14px; 
+  cursor: pointer; 
+  display: flex; 
+  align-items: center; 
+  justify-content: center; 
+  gap: 8px; 
+}
+.createButton:hover { opacity: 0.9; 
+}
+.btnIconBox { width: 28px; 
+  height: 28px; 
+  background-color: #121212; 
+  border-radius: 6px; 
+  display: flex; 
+  justify-content: center; 
+  align-items: center; 
+  color: #fff; 
+}
