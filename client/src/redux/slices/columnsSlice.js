@@ -1,6 +1,6 @@
 import { createSlice, createAsyncThunk } from "@reduxjs/toolkit";
-import axios from "axios";
-import { API_BASE_URL, AUTH_STORAGE_KEY } from "../../config";
+import api from "../../utils/api";
+import { AUTH_STORAGE_KEY } from "../../config";
 
 export const fetchColumns = createAsyncThunk("columns/fetchColumns", async (boardId, { rejectWithValue }) => {
   try {
@@ -10,7 +10,7 @@ export const fetchColumns = createAsyncThunk("columns/fetchColumns", async (boar
       return rejectWithValue("Token yok, kullanıcı login olmalı");
     }
 
-    const response = await axios.get(`${API_BASE_URL}/boards/${boardId}/columns`, {
+    const response = await api.get(`/boards/${boardId}/columns`, {
       headers: { Authorization: `Bearer ${token}` },
     });
 
@@ -30,7 +30,7 @@ export const createColumn = createAsyncThunk(
 
       console.log({ boardId, columnData });
 
-      const response = await axios.post(`${API_BASE_URL}/boards/${boardId}/columns`, columnData, {
+      const response = await api.post(`/boards/${boardId}/columns`, columnData, {
         headers: { Authorization: `Bearer ${token}` },
       });
 
@@ -48,7 +48,7 @@ export const updateColumn = createAsyncThunk(
     try {
       const auth = JSON.parse(localStorage.getItem(AUTH_STORAGE_KEY));
       const token = auth?.token;
-      const response = await axios.put(`${API_BASE_URL}/columns/${columnId}`, columnData, {
+      const response = await api.put(`/columns/${columnId}`, columnData, {
         headers: { Authorization: `Bearer ${token}` },
       });
       return response.data;
@@ -62,7 +62,7 @@ export const deleteColumn = createAsyncThunk("columns/deleteColumn", async (colu
   try {
     const auth = JSON.parse(localStorage.getItem(AUTH_STORAGE_KEY));
     const token = auth?.token;
-    await axios.delete(`${API_BASE_URL}/columns/${columnId}`, {
+    await api.delete(`/columns/${columnId}`, {
       headers: { Authorization: `Bearer ${token}` },
     });
     return columnId;

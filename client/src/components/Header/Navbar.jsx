@@ -1,62 +1,57 @@
-// client/src/components/Header/Navbar.jsx
-
-import React, { use } from "react";
+import React, { useState } from "react";
 import styles from "./Navbar.module.css";
-import { useState } from "react";
-import { useEffect } from "react";
 
-function Navbar() {
+function Navbar({ activeTheme = "light", onThemeChange, user }) {
   const [themeContent, setThemeContent] = useState(false);
-  const [theme, setTheme] = useState("light");
 
-  // dropdownunu aç/kapa
   const toggleThemeContent = () => {
-    setThemeContent(!themeContent);
+    setThemeContent((v) => !v);
   };
-  // temayı değiştir
+
   const changeTheme = (selectedTheme) => {
-    setTheme(selectedTheme);
-    setThemeContent(false); //seçim yapıldıktan sonra dropdownu  kapat
+    onThemeChange?.(selectedTheme);
+    setThemeContent(false);
   };
-  // Default temayı body'e uygula ve theme değişirse güncelle
-  useEffect(() => {
-    document.body.className = theme;
-  }, [theme]); // boş dependency array -> component ilk render olduğunda çalışır
 
   return (
-    <div className={styles.taskPro}>
-      <div className={styles.sidebar}>{/* Sol Taraf boş sidebar */}</div>
-      <nav className={styles.navbarContainer}>
-        <div className={styles.navbarMenu}>
-          {/* 1. Tema Seçim Bölümü */}
-          <div className={styles.themeSelector}>
-            <div className={styles.themeContent} onClick={toggleThemeContent}>
-              <p className={styles.themeTittle}>Theme</p>
-              <img src="/theme-arrow-icon.svg" className={styles.themeArrowIcon} />
+    <nav className={styles.navbarContainer}>
+      <div className={styles.navbarMenu}>
+        <div className={styles.themeSelector}>
+          <button className={styles.themeButton} onClick={toggleThemeContent} type="button">
+            <span className={styles.themeLabel}>Theme</span>
+            <span className={styles.themeValue}>{activeTheme}</span>
+            <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2">
+              <path d="M6 9l6 6 6-6" />
+            </svg>
+          </button>
+          {themeContent && (
+            <div className={styles.themeDropdown}>
+              {["light", "violet", "dark"].map((opt) => (
+                <button
+                  key={opt}
+                  className={`${styles.themeOption} ${activeTheme === opt ? styles.themeOptionActive : ""}`}
+                  type="button"
+                  onClick={() => changeTheme(opt)}
+                >
+                  {opt}
+                </button>
+              ))}
             </div>
-            {themeContent && (
-              <div className={styles.themeDropdown}>
-                <p className={styles.themeOption} onClick={() => changeTheme("light")}>
-                  Light
-                </p>
-                <p className={styles.themeOption} onClick={() => changeTheme("dark")}>
-                  Dark
-                </p>
-                <p className={styles.themeOption} onClick={() => changeTheme("violet")}>
-                  Violet
-                </p>
-              </div>
+          )}
+        </div>
+
+        <div className={styles.userProfile}>
+          <span className={styles.userName}>{user?.name || "User"}</span>
+          <div className={styles.userAvatar} title={user?.email || ""}>
+            {user?.avatarURL ? (
+              <img src={user.avatarURL} alt="avatar" />
+            ) : (
+              <span>{(user?.name || "U").charAt(0).toUpperCase()}</span>
             )}
           </div>
-
-          {/* 2. Kullanıcı Profili Bölümü */}
-          <div className={styles.userProfile}>
-            <span className={styles.userName}>User</span>
-            <img src="/user-profile-icon.svg" alt="User Avatar Icon" className={styles.userAvatar} />
-          </div>
         </div>
-      </nav>
-    </div>
+      </div>
+    </nav>
   );
 }
 

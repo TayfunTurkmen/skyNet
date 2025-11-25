@@ -1,12 +1,12 @@
 .cardContainer {
-  background-color: #ffffff;
+  background-color: var(--card-bg);
   border-radius: 8px;
   /* Padding'i düşürdük, Title ve Description kendisi yeterli boşluk yaratacak. */
   padding: 16px;
   margin-bottom: 14px;
   box-shadow: 0 1px 3px rgba(0, 0, 0, 0.05);
   transition: box-shadow 0.2s ease, border 0.2s ease;
-  border: 1px solid #e0e0e0;
+  border: 1px solid var(--card-border);
   border-left: none;
   position: relative;
   /* 💡 Değişiklik: priorityBar'ı yerleştirmek için padding-left'i düşürdük */
@@ -17,7 +17,7 @@
 }
 
 .cardContainer:hover {
-  border-color: #c0c0c0;
+  border-color: var(--border-color);
   box-shadow: 0 2px 6px rgba(0, 0, 0, 0.1);
 }
 
@@ -35,7 +35,7 @@
 .cardTitle {
   font-weight: 700;
   font-size: 14px;
-  color: #1f2937;
+  color: var(--text-icon-color);
   margin-bottom: 4px;
   overflow: hidden;
   text-overflow: ellipsis;
@@ -45,7 +45,7 @@
 }
 .cardDescription {
   font-size: 12px;
-  color: #4b5563;
+  color: var(--card-muted);
   margin-bottom: 12px;
   overflow: hidden;
   text-overflow: ellipsis;
@@ -56,7 +56,7 @@
 /* Yatay çizgi için ayırıcı */
 .separator {
   height: 1px;
-  background-color: #e5e7eb;
+  background-color: var(--card-border);
   /* 💡 Değişiklik: Yatay çizginin soldaki çubuğu hesaba katması için */
   margin: 12px 0 12px -4px;
 }
@@ -104,14 +104,14 @@
   flex-shrink: 0;
 }
 .priorityText {
-  color: #1f2937; /* Koyu metin */
+  color: var(--text-icon-color); /* Koyu metin */
   font-size: 10px;
   white-space: nowrap;
   overflow: hidden;
   text-overflow: ellipsis;
 }
 .deadlineText {
-  color: #1f2937; /* Koyu metin */
+  color: var(--text-icon-color); /* Koyu metin */
   font-size: 10px;
   flex-shrink: 0;
 }
@@ -131,7 +131,7 @@
 }
 
 .actionButton {
-  color: #9ca3af; /* Soluk gri ikonlar */
+  color: var(--card-muted); /* Soluk gri ikonlar */
   transition: color 0.2s ease;
 }
 
@@ -142,7 +142,7 @@
 
 .actionButton:hover,
 .deleteButton:hover {
-  color: #1f2937;
+  color: var(--text-icon-color);
 }
 
 .bellButton:hover {

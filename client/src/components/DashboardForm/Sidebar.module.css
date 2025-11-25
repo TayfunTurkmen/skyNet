@@ -1,12 +1,12 @@
 /* --- 1. GENEL AYARLAR (Tüm Ekranlar İçin Ortak) --- */
 .sidebar {
   width: 260px;
-  background-color: #121212;
+  background-color: var(--sidebar-color, #121212);
   height: 100vh;
   display: flex;
   flex-direction: column;
   padding: 24px 0;
-  color: #ffffff;
+  color: var(--text-icon-color, #ffffff);
   border-right: 1px solid rgba(255, 255, 255, 0.1);
   box-sizing: border-box;
   
@@ -90,14 +90,14 @@
 .appName {
    font-size: 16px;
    font-weight: 600;
-   color: #fff;
+   color: var(--text-icon-color, #ffffff);
  }
 .boardsTitle {
    font-size: 12px;
-   color: rgba(255, 255, 255, 0.5);
+   color: var(--sidebar-muted, rgba(255, 255, 255, 0.5));
    padding: 0 24px;
    margin-bottom: 8px;
- }
+}
 
 .createBoardContainer {
    padding: 0 24px;
@@ -108,14 +108,14 @@
    width: 100%;
    background: none;
    border: none;
-   border-top: 1px solid rgba(255, 255, 255, 0.1);
-   border-bottom: 1px solid rgba(255, 255, 255, 0.1);
+   border-top: 1px solid var(--sidebar-muted, rgba(255, 255, 255, 0.1));
+   border-bottom: 1px solid var(--sidebar-muted, rgba(255, 255, 255, 0.1));
    padding: 14px 0;
    display: flex;
    align-items: center;
    justify-content: space-between;
    cursor: pointer;
-   color: #ffffff;
+   color: var(--text-icon-color, #ffffff);
    font-size: 14px;
    font-weight: 500;
    text-align: left;
@@ -131,7 +131,7 @@
 .plusIconBox {
    width: 40px;
    height: 36px;
-   background-color: #BEDBB0;
+   background-color: var(--button-primary, #BEDBB0);
    border-radius: 8px;
    display: flex;
    justify-content: center;
@@ -142,7 +142,7 @@
    background-color: #9dc28d;
  }
 .plusIconBox svg path {
-   stroke: #121212;
+   stroke: var(--button-primary-text, #121212);
  }
 
 .boardList {
@@ -173,9 +173,10 @@
    padding: 20px 24px;
    cursor: pointer;
    transition: background-color 0.2s;
+   background-color: transparent;
  }
 .boardItem:hover {
-   background-color: #1F1F1F;
+   background-color: rgba(0,0,0,0.08);
  }
 .boardLink {
    display: flex;
@@ -204,13 +205,13 @@
  }
 
 .boardItem.active {
-   background-color: #1F1F1F;
+   background-color: rgba(0,0,0,0.08);
  }
 .boardItem.active .boardLink {
-   color: #ffffff;
+   color: var(--text-icon-color, #ffffff);
  }
 .boardItem.active .boardIcon {
-   color: #ffffff;
+   color: var(--text-icon-color, #ffffff);
  }
 .boardItem.active::after {
    content: "";

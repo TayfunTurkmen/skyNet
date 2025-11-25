@@ -1,6 +1,4 @@
 import React, { useState, useEffect, useRef } from "react";
-import { useDispatch } from "react-redux";
-import { createBoard, updateBoard } from "../../redux/slices/boardsSlice";
 import SvgIcon from "./SvgIcon";
 import styles from "./NewBoardModal.module.css";
 import api from "../../utils/api";
@@ -36,9 +34,7 @@ const BACKGROUNDS = [
   "15_gueaym",
 ];
 
-function NewBoardModal({ onClose, isEditMode = false, initialData = {} }) {
-  const dispatch = useDispatch();
-
+function NewBoardModal({ onClose, isEditMode = false, initialData = {}, onBoardCreated, onBoardUpdated }) {
   const [title, setTitle] = useState("");
   const [selectedIcon, setSelectedIcon] = useState(ICONS[0]);
   const cleanInitialBg = initialData?.background ? initialData.background.replace(".jpg", "") : BACKGROUNDS[0];
@@ -101,9 +97,12 @@ function NewBoardModal({ onClose, isEditMode = false, initialData = {} }) {
 
     try {
       if (isEditMode) {
-        await dispatch(updateBoard({ boardId: initialData._id, boardData })).unwrap();
+        await onBoardUpdated?.({ ...initialData, ...boardData });
       } else {
-        await dispatch(createBoard(boardData)).unwrap();
+        const created = await onBoardCreated?.(boardData);
+        if (!created) {
+          throw new Error("Board could not be created");
+        }
       }
 
       onClose();

@@ -1,94 +1,126 @@
-.taskPro {
-  width: 100%; /*Uygulama alanını tanımlar*/
-  min-height: 100vh; /* Yüksekliği ekranı kaplayacak şekilde ayarlar */
-  background-color: var(--primary-bg-color);
-  display: flex; /*  Sidebar ve Nav/Content'i yan yana dizer */
-  align-items: flex-start; /* İçeriği dikeyde üste hizalar */
-}
-.sidebar {
-  background-color: var(--sidebar-color);
-  width: 260px;
-  min-height: 100vh;
-  flex-shrink: 0; /* Sidebar'ın daralmamasını sağlar */
-}
-/* Ana Kapsayıcı: sidebarın sağında kalan 1180px genişliğinde, ortalanmış çubuk */
 .navbarContainer {
-  width: 100%; /* Genişliği tam yapar */
-  height: 68px;
-  background-color: var(--secondary-bg-color);
-
-  /*İçindeki menü içeriğini sağa itmek için Flex*/
+  width: 100%;
+  min-height: 68px;
+  background-color: var(--secondary-bg-color, #ffffff);
   display: flex;
   align-items: center;
-  justify-content: flex-end; /* KRİTİK: Menüyü sağa dayar */
-  padding: 0 20px;
+  justify-content: flex-end;
+  padding: 14px 24px;
+  border-radius: 14px;
+  box-shadow: 0 6px 20px rgba(0, 0, 0, 0.06);
+  box-sizing: border-box;
+}
+
+.navbarLeft .title {
+  margin: 0;
+  font-size: 22px;
+  font-weight: 700;
+  color: #121212;
 }
 
 .navbarMenu {
-  /* Navbar Menü (Tema ve Kullanıcıyı tutan iç div) */
   display: flex;
-  gap: 20px; /* Öğeler arasına boşluk */
+  align-items: center;
+  gap: 16px;
 }
 
-/* Tema ve Kullanıcı Bloğu */
 .themeSelector {
-  /* Ana Kapsayıcı: Menüyü pozisyonlamak için zorunlu */
   display: flex;
   flex-direction: column;
   position: relative;
 }
-.themeContent {
-  display: flex;
+
+.themeButton {
+  display: inline-flex;
   align-items: center;
-  height: 100%;
-}
-.themeTittle {
-  margin-right: 8px;
-  font-size: 14px;
-  font-weight: 500;
-  font: poppins;
-  color: var(--text-icon-color);
-  display: flex;
-  align-items: center;
+  gap: 8px;
+  padding: 10px 14px;
+  border-radius: 12px;
+  border: 1px solid var(--border-color, #e7e7e7);
+  background: var(--secondary-bg-color, #ffffff);
+  cursor: pointer;
+  font-weight: 600;
+  color: var(--text-icon-color, #121212);
 }
 
-.themeArrowIcon {
-  color: var(--border-color);
-}
-.themeDropdown {
-  padding: 6px 12px;
-  border-radius: 8px;
-  border: 1px solid var(--border-color);
-  background-color: var(--primary-bg-color);
+.themeLabel {
   font-size: 14px;
-  color: var(--text-icon-color);
+}
+
+.themeValue {
+  font-size: 14px;
+  color: #6b6b6b;
+  text-transform: capitalize;
+}
+
+.themeDropdown {
+  padding: 6px 0;
+  border-radius: 10px;
+  border: 1px solid var(--border-color, #e7e7e7);
+  background-color: var(--secondary-bg-color, #ffffff);
+  font-size: 14px;
+  color: var(--text-icon-color, #121212);
   cursor: pointer;
-  box-shadow: 0px 4px 16px 0 var(--text-icon-color);
+  box-shadow: 0px 8px 20px rgba(0, 0, 0, 0.08);
   position: absolute;
   top: 100%;
-  width: 100px;
-  left: -25%;
+  min-width: 140px;
+  right: 0;
+  z-index: 5;
+}
+
+.themeOption {
+  padding: 10px 14px;
+  background: var(--secondary-bg-color, #ffffff);
+  border: none;
+  width: 100%;
+  text-align: left;
+  cursor: pointer;
+  color: var(--text-icon-color, #121212);
+}
+
+.themeOption:hover {
+  background: rgba(255, 255, 255, 0.08);
+}
+
+.themeOptionActive {
+  font-weight: 700;
+  background: var(--button-primary, #e8f0e5);
 }
 
 /* Kullanıcı Profili */
 .userProfile {
   display: flex;
   align-items: center;
+  gap: 10px;
+  padding: 8px 12px;
+  border-radius: 12px;
+  border: 1px solid var(--border-color, #e7e7e7);
+  background: var(--secondary-bg-color, #ffffff);
 }
 
 .userName {
-  margin-right: 8px;
   font-size: 14px;
-  font-weight: 500;
-  color: var(--text-icon-color);
+  font-weight: 700;
+  color: var(--text-icon-color, #121212);
 }
 
 .userAvatar {
-  width: 30px;
-  height: 30px;
+  width: 36px;
+  height: 36px;
   border-radius: 50%;
+  overflow: hidden;
+  border: 1px solid var(--border-color, #e7e7e7);
+  background-color: #d9d9d9;
+  color: var(--text-icon-color, #121212);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-weight: 700;
+}
+
+.userAvatar img {
+  width: 100%;
+  height: 100%;
   object-fit: cover;
-  border: 1px solid var(--border-color);
-  background-color: var(--primary-bg-color);
-  color: var(--secondary-bg-color);
 }

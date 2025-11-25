@@ -16,10 +16,11 @@
 /* Başlık Kutusu (Kart görünümü alacak) */
 .columnTitleContainer {
   /* İstenen değişiklik: Arka plan rengi, radius ve padding */
-  background-color: #fff;
+  background-color: var(--card-bg);
   border-radius: 8px;
   margin-bottom: 14px; /* Başlık kutusu ile kartlar arasına boşluk */
   flex-shrink: 0; /* Daralmasını engelle */
+  border: 1px solid var(--card-border);
 }
 
 /* Başlık ve Butonlar Alanı */
@@ -34,7 +35,7 @@
 .columnTitle {
   font-size: 14px;
   font-weight: 500;
-  color: #161616;
+  color: var(--text-icon-color);
   margin-left: 14px;
   white-space: nowrap;
   overflow: hidden;
@@ -57,7 +58,7 @@
   font-size: 14px;
   padding: 4px;
   /* İstenen değişiklik: İkon rengi */
-  color: #161616;
+  color: var(--text-icon-color);
   opacity: 0.6; /* Daha soluk görünmesi için (pasif gri) */
   transition: color 0.2s, transform 0.1s, opacity 0.2s;
   display: flex;
@@ -115,7 +116,7 @@
 /* Kart Yok Mesajı */
 .noCardsText {
   font-size: 12px;
-  color: #4b5563; /* Koyu gri renk */
+  color: var(--card-muted); /* Koyu gri renk */
   text-align: center;
   margin-top: 20px;
   font-style: italic;
@@ -130,8 +131,8 @@
 .addCardButton {
   width: 100%;
   padding: 14px;
-  background-color: #bedbb0;
-  color: #121212;
+  background-color: var(--button-primary);
+  color: var(--button-primary-text);
   border: none;
   border-radius: 8px;
   font-weight: 500;

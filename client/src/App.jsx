@@ -3,7 +3,6 @@ import { Routes, Route, Navigate } from "react-router-dom";
 import { AUTH_STORAGE_KEY } from "./config";
 import WelcomePage from "./pages/WelcomePage/WelcomePage";
 import AuthPage from "./pages/AuthPage/AuthPage";
-import HomePage from "./pages/HomePage/HomePage";
 import ResetPasswordPage from "./pages/ResetPasswordPage/ResetPasswordPage";
 import DashboardPage from "./pages/DashboardPage/DashboardPage";
 
@@ -23,20 +22,19 @@ function App() {
       <Route path="/welcome" element={<WelcomePage />} />
       <Route path="/auth/:id" element={<AuthPage />} />
       <Route path="/reset-password" element={<ResetPasswordPage />} />
-      <Route path="/" element={<Navigate to="/welcome" replace />} />
+      <Route path="/" element={<Navigate to={isAuthenticated() ? "/home" : "/welcome"} replace />} />
       <Route
         path="/home"
         element={
           <ProtectedRoute>
-            <HomePage />
+            <DashboardPage />
           </ProtectedRoute>
         }
       />
       <Route
-        path="/dashboard"
+        path="/dashboard/:boardId"
         element={
           <ProtectedRoute>
-            {console.log("AUTH:", localStorage.getItem(AUTH_STORAGE_KEY))}
             <DashboardPage />
           </ProtectedRoute>
         }
