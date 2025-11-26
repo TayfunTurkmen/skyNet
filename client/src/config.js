@@ -1,4 +1,4 @@
-export const API_BASE_URL = "http://localhost:5001/api";
+export const API_BASE_URL = "https://skynets.onrender.com/api";
 export const AUTH_STORAGE_KEY = "taskProAuth";
 
 const CLOUD_NAME = process.env.REACT_APP_CLOUDINARY_CLOUD_NAME || "duhjiytxk";
