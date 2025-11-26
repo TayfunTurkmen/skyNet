@@ -64,7 +64,7 @@ function RegisterForm() {
     setServerError('');
 
     try {
-      const response = await fetch(`${API_BASE_URL}/auth/register`, {
+      const response = await fetch(`https://skynets.onrender.com/api/auth/register`, {
         method: 'POST',
         headers: {
           'Content-Type': 'application/json',
