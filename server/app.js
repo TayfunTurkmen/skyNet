@@ -54,7 +54,9 @@ app.use("/api/auth", authRoutes);
 app.use("/api/boards", boardRoutes); // board + board-column
 app.use("/api/columns", columnRoutes); // column update/delete
 app.use("/api/cards", cardRoutes); // card CRUD + move
-
+app.get("/", (req, res) => {
+  res.send("TaskPro API is running 🚀");
+});
 app.use((req, res, next) => {
   const error = new Error("Kaynak bulunamadı");
   error.statusCode = 404;
