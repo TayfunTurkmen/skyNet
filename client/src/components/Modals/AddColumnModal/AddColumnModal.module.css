@@ -12,7 +12,7 @@
 }
 
 .addColumnModal {
-  background: #fcfcfc;
+  background: var(--surface-color, #fcfcfc);
   border-radius: 16px;
   box-shadow: 0 8px 32px rgba(0, 0, 0, 0.18);
   padding: 32px;
@@ -21,7 +21,7 @@
   flex-direction: column;
   align-items: center;
   position: relative;
-  border: 1px solid #fcfcfc;
+  border: 1px solid var(--border-color, #fcfcfc);
 }
 
 .addColumnCloseBtn {
@@ -30,7 +30,7 @@
   right: 18px;
   background: none;
   border: none;
-  color: #161616;
+  color: var(--text-icon-color, #161616);
   cursor: pointer;
   z-index: 10;
   transition: opacity 0.2s;
@@ -43,7 +43,7 @@
 .addColumnTitle {
   font-size: 18px;
   font-weight: 600;
-  color: #161616;
+  color: var(--text-icon-color, #161616);
   margin-bottom: 24px;
   text-align: left;
   width: 100%;
@@ -57,26 +57,26 @@
 }
 
 .addColumnInput {
-  border: 1px solid #bedbb0;
+  border: 1px solid var(--border-color, #bedbb0);
   border-radius: 8px;
   width: 100%;
   height: 49px;
   font-weight: 400;
   font-size: 14px;
-  background: transparent;
-  color: #161616;
+  background: var(--input-bg, transparent);
+  color: var(--text-icon-color, #161616);
   padding: 0 18px;
   box-sizing: border-box;
   transition: border 0.2s;
 }
 
 .addColumnInput::placeholder {
-  color: #16161693;
+  color: var(--card-muted, #16161693);
 }
 
 .addColumnInput:focus {
   outline: none;
-  border-color: #9dc888;
+  border-color: var(--button-primary, #9dc888);
 }
 
 .addColumnInputError {
@@ -96,8 +96,8 @@
   font-weight: 600;
   font-size: 14px;
   text-align: center;
-  background: #bedbb0;
-  color: #161616;
+  background: var(--button-primary, #bedbb0);
+  color: var(--button-primary-text, #161616);
   border: none;
   margin-top: 10px;
   display: flex;
@@ -123,8 +123,8 @@
   justify-content: center;
   width: 18px;
   height: 18px;
-  background: #161616;
-  color: #fff;
+  background: #121212;
+  color: #ffffff;
   border-radius: 6px;
   font-size: 14px;
   font-weight: 600;

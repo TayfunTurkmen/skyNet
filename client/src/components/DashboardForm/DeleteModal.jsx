@@ -9,15 +9,15 @@ function DeleteModal({ isOpen, onClose, onConfirm, title = "Are you sure?" }) {
       <div className={styles.modalContent} onClick={(e) => e.stopPropagation()}>
         <h3 className={styles.title}>{title}</h3>
         <p className={styles.message}>
-          Bu işlem geri alınamaz. Bu panoyu ve içindeki tüm kartları silmek istediğinize emin misiniz?
+          This action cannot be undone. Are you sure you want to delete this board and all its cards?
         </p>
         
         <div className={styles.buttonGroup}>
           <button className={styles.cancelButton} onClick={onClose}>
-            İptal
+            Cancel
           </button>
           <button className={styles.deleteButton} onClick={onConfirm}>
-            Evet, Sil
+            Yes, Delete
           </button>
         </div>
       </div>

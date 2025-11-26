@@ -1,7 +1,11 @@
 const express = require("express");
 const cors = require("cors");
 const morgan = require("morgan");
+const fs = require("fs");
+const path = require("path");
 require("dotenv").config();
+const swaggerUi = require("swagger-ui-express");
+const swaggerSpec = require("./swagger");
 
 const helpRoutes = require("./routes/helpRoutes");
 const authRoutes = require("./routes/authRoutes");
@@ -10,6 +14,10 @@ const columnRoutes = require("./routes/columnRoutes");
 const cardRoutes = require("./routes/cardRoutes");
 
 const app = express();
+const uploadsDir = path.join(__dirname, "uploads");
+if (!fs.existsSync(uploadsDir)) {
+  fs.mkdirSync(uploadsDir, { recursive: true });
+}
 
 const parseAllowedOrigins = () => {
   if (!process.env.CLIENT_URL) {
@@ -37,6 +45,8 @@ const buildCorsConfig = () => {
 app.use(cors(buildCorsConfig()));
 app.use(express.json({ limit: "1mb" }));
 app.use(morgan("dev"));
+app.use("/uploads", express.static(uploadsDir));
+app.use("/api-docs", swaggerUi.serve, swaggerUi.setup(swaggerSpec));
 
 app.use("/api/help", helpRoutes);
 app.use("/api/auth", authRoutes);

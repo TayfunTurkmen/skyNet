@@ -12,7 +12,7 @@
 }
 
 .editModalContainer {
-  background-color: #fcfcfc;
+  background-color: var(--surface-color, #fcfcfc);
   border-radius: 16px;
   box-shadow: 0 8px 32px rgba(0, 0, 0, 0.18);
   padding: 32px 32px 28px 32px;
@@ -21,7 +21,7 @@
   flex-direction: column;
   align-items: center;
   position: relative;
-  border: 1px solid #fcfcfc;
+  border: 1px solid var(--border-color, #fcfcfc);
 }
 
 .closeButton {
@@ -30,7 +30,7 @@
   right: 18px;
   background: none;
   border: none;
-  color: #161616;
+  color: var(--text-icon-color, #161616);
   cursor: pointer;
   z-index: 10;
   transition: opacity 0.2s;
@@ -49,7 +49,7 @@
   margin-bottom: 24px;
   text-align: left;
   width: 100%;
-  color: #161616;
+  color: var(--text-icon-color, #161616);
 }
 
 .editModalForm {
@@ -60,8 +60,8 @@
 }
 
 .editModalFormInput {
-  border: 1px solid #bedbb0;
-  background: transparent;
+  border: 1px solid var(--border-color, #bedbb0);
+  background: var(--input-bg, transparent);
   border-radius: 8px;
   width: 100%;
   height: 49px;
@@ -70,16 +70,16 @@
   padding: 0 18px;
   transition: border 0.2s;
   box-sizing: border-box;
-  color: rgb(35, 35, 35);
+  color: var(--text-icon-color, rgb(35, 35, 35));
 }
 
 .editModalFormInput:focus {
   outline: none;
-  border-color: #9dc888;
+  border-color: var(--button-primary, #9dc888);
 }
 
 .editModalFormInput::placeholder {
-  color: #16161693;
+  color: var(--card-muted, #16161693);
 }
 
 .editButton {
@@ -89,8 +89,8 @@
   font-weight: 600;
   font-size: 14px;
   text-align: center;
-  background: #bedbb0;
-  color: #161616;
+  background: var(--button-primary, #bedbb0);
+  color: var(--button-primary-text, #161616);
   border: none;
   margin-top: 10px;
   display: flex;
@@ -101,14 +101,19 @@
   transition: opacity 0.2s;
 }
 
+:global(body.violet) .editButton {
+  background: #5255bc;
+  color: #ffffff;
+}
+
 .editButton span {
   display: flex;
   align-items: center;
   justify-content: center;
   width: 18px;
   height: 18px;
-  background: #161616;
-  color: #fff;
+  background: #ffffff;
+  color: #121212;
   border-radius: 6px;
   font-size: 14px;
   font-weight: 600;

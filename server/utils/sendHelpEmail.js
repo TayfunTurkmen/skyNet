@@ -57,8 +57,11 @@ const sendHelpEmail = async ({ email, comment }) => {
     await client.sendTransacEmail(sendSmtpEmail);
     return { message: "Email gönderildi" };
   } catch (err) {
-    console.error("Brevo Hata:", err?.response?.text || err.message);
-    throw new Error("Email gönderilemedi");
+    const brevoMessage = err?.response?.text || err.message || "Email gönderilemedi";
+    console.error("Brevo Hata:", brevoMessage);
+    const error = new Error(brevoMessage);
+    error.statusCode = 500;
+    throw error;
   }
 };
 

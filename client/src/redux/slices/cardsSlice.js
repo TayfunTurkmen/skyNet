@@ -1,12 +1,12 @@
 import { createSlice, createAsyncThunk } from "@reduxjs/toolkit";
-import axios from "axios";
-import { API_BASE_URL, AUTH_STORAGE_KEY } from "../../config";
+import api from "../../utils/api";
+import { AUTH_STORAGE_KEY } from "../../config";
 
 export const fetchCards = createAsyncThunk("cards/fetchCards", async (columnId, { rejectWithValue }) => {
   try {
     const auth = JSON.parse(localStorage.getItem(AUTH_STORAGE_KEY));
     const token = auth?.token;
-    const response = await axios.get(`${API_BASE_URL}/columns/${columnId}/cards`, {
+    const response = await api.get(`/columns/${columnId}/cards`, {
       headers: { Authorization: `Bearer ${token}` },
     });
     return response.data;
@@ -19,7 +19,7 @@ export const createCard = createAsyncThunk("cards/createCard", async ({ columnId
   try {
     const auth = JSON.parse(localStorage.getItem(AUTH_STORAGE_KEY));
     const token = auth?.token;
-    const response = await axios.post(`${API_BASE_URL}/columns/${columnId}/cards`, cardData, {
+    const response = await api.post(`/columns/${columnId}/cards`, cardData, {
       headers: { Authorization: `Bearer ${token}` },
     });
     return { ...response.data, columnId };
@@ -33,7 +33,7 @@ export const updateCard = createAsyncThunk("cards/updateCard", async ({ cardId, 
   try {
     const auth = JSON.parse(localStorage.getItem(AUTH_STORAGE_KEY));
     const token = auth?.token;
-    const response = await axios.put(`${API_BASE_URL}/cards/${cardId}`, cardData, {
+    const response = await api.put(`/cards/${cardId}`, cardData, {
       headers: { Authorization: `Bearer ${token}` },
     });
     return response.data;
@@ -46,7 +46,7 @@ export const deleteCard = createAsyncThunk("cards/deleteCard", async (cardId, { 
   try {
     const auth = JSON.parse(localStorage.getItem(AUTH_STORAGE_KEY));
     const token = auth?.token;
-    await axios.delete(`${API_BASE_URL}/cards/${cardId}`, {
+    await api.delete(`/cards/${cardId}`, {
       headers: { Authorization: `Bearer ${token}` },
     });
     return cardId;
@@ -59,8 +59,8 @@ export const moveCard = createAsyncThunk("cards/moveCard", async ({ cardId, newC
   try {
     const auth = JSON.parse(localStorage.getItem(AUTH_STORAGE_KEY));
     const token = auth?.token;
-    const response = await axios.patch(
-      `${API_BASE_URL}/cards/${cardId}/move`,
+    const response = await api.patch(
+      `/cards/${cardId}/move`,
       { columnId: newColumnId },
       { headers: { Authorization: `Bearer ${token}` } }
     );

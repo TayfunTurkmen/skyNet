@@ -10,12 +10,14 @@
 .mainContent {
   flex: 1; /* Kalan boşluğu doldur */
   width: 100%; /* Mobilde tam genişlik olması için */
-  padding: 20px; /* Mobilde varsayılan boşluk */
+  padding: 0; /* Kenar boşluklarını kaldır */
   display: flex;
   flex-direction: column;
   overflow-y: auto; /* İçerik dikey kaydırılsın */
   position: relative;
   box-sizing: border-box; /* Padding genişliği etkilemesin */
+  background: var(--primary-bg-color);
+  color: var(--text-icon-color);
 }
 
 /* --- HEADER (ÜST KISIM) --- */
@@ -23,20 +25,63 @@
   display: flex;
   align-items: center;
   justify-content: space-between; /* Sol, Orta, Sağ öğeleri dağıt */
-  margin-bottom: 24px;
+  margin-bottom: 0;
   width: 100%; /* Genişliği garantiye al */
+  box-sizing: border-box;
+  position: sticky;
+  top: 0;
+  z-index: 5;
+  padding: 0;
+  background: var(--secondary-bg-color);
+}
+
+.boardArea {
+  flex: 1;
+  display: flex;
+  flex-direction: column;
+  gap: 12px;
+  padding: 0;
+  border-radius: 0;
+  background-color: var(--primary-bg-color);
   box-sizing: border-box;
 }
 
-/* Başlık (Dashboard yazısı) */
-.mainHeader h1 {
+.boardTopBar {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+}
+
+.boardTitleGroup {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+}
+
+.boardTitle {
   margin: 0;
-  font-size: 18px;
+  font-size: 22px;
+  font-weight: 700;
+  color: var(--text-icon-color);
+  text-shadow: 0 1px 2px rgba(0, 0, 0, 0.45), 0 0 1px rgba(255, 255, 255, 0.65);
+  -webkit-text-stroke: 0.3px rgba(0, 0, 0, 0.35);
+}
+
+.boardTitleIcon {
+  color: var(--text-icon-color);
+}
+
+.filterButton {
+  display: inline-flex;
+  align-items: center;
+  gap: 8px;
+  padding: 10px 14px;
+  border-radius: 12px;
+  border: 1px solid var(--border-color);
+  background: var(--secondary-bg-color);
+  cursor: pointer;
   font-weight: 600;
-  /* Başlık ortada kalsın veya sola yaslansın isterseniz: */
-  /* flex-grow: 1; text-align: center; (Ortalar) */
-  margin-right: auto; /* Sola, Hamburgerin yanına iter */
-  margin-left: 10px;
+  color: var(--text-icon-color);
 }
 
 /* --- LOGOUT BUTONU --- */
@@ -78,16 +123,52 @@
   padding-bottom: 20px;
 }
 
+.addColumnButton {
+  min-width: 335px;
+  height: 56px;
+  background: var(--secondary-bg-color);
+  border-radius: 8px;
+  border: 1px solid var(--border-color);
+  cursor: pointer;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 8px;
+  font-weight: 500;
+  font-size: 14px;
+  color: var(--text-icon-color);
+  flex-shrink: 0;
+  box-shadow: 0 2px 6px rgba(0,0,0,0.08);
+}
+
+.addColumnButton .addColumnPlusBox {
+  background: #121212;
+  color: #ffffff;
+  border-radius: 4px;
+  width: 28px;
+  height: 28px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-weight: 600;
+}
+
+:global(body.violet) .addColumnButton {
+  background: #ffffff;
+  border-color: #ffffff;
+  color: #161616;
+}
+:global(body.violet) .addColumnButton .addColumnPlusBox {
+  background: #5255bc;
+  color: #ffffff;
+}
+
 /* --- RESPONSIVE KIRILIMLAR --- */
 
 /* TABLET (768px ve üzeri) */
 @media (min-width: 768px) {
-  .mainContent {
-    padding: 32px; /* Boşlukları artır */
-  }
-
-  .mainHeader h1 {
-    font-size: 24px;
+  .boardArea {
+    padding: 24px;
   }
 }
 
@@ -99,11 +180,27 @@
   }
 
   .mainContent {
-    padding: 40px;
+    padding: 0;
   }
+}
 
-  /* Hamburger gidince başlık en sola yapışmasın diye margin'i sıfırla */
-  .mainHeader h1 {
-    margin-left: 0;
-  }
+.emptyState {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  width: 100%;
+  height: 100%;
+  color: var(--text-icon-color);
+  font-size: 18px;
+  text-align: center;
+  padding: 40px 24px;
+  box-sizing: border-box;
+  line-height: 1.5;
+  max-width: 720px;
+  margin: 0 auto;
+}
+
+.highlight {
+  color: var(--button-primary, #bedbb0);
+  font-weight: 700;
 }

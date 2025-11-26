@@ -18,18 +18,18 @@
 }
 
 .moveCardModalContainer {
-  background-color: #fff;
+  background-color: var(--surface-color, #ffffff);
   border-radius: 16px;
-  padding: 20px; /* İçeriden boşluk */
+  padding: 20px;
   width: 100%;
-  max-width: 250px;
-  box-shadow: 0 10px 30px rgba(0, 0, 0, 0.15);
+  max-width: 240px;
+  box-shadow: 0 10px 30px rgba(0, 0, 0, 0.25);
   display: flex;
   flex-direction: column;
   gap: 8px;
   transform: scale(1);
   transition: transform 0.3s ease-out;
-  position: relative; /* Kapatma butonunu konumlandırmak için */
+  position: relative;
 }
 
 /* ==================================
@@ -47,9 +47,9 @@
 /* 💡 GÜNCELLEME: "Move Card To:" Başlık Stili */
 .modalTitle {
   font-size: 14px;
-  font-weight: 700; /* Kalın (Bold) */
-  color: #121212;
-  margin: 0; /* P etiketinin varsayılan marginini sıfırla */
+  font-weight: 700;
+  color: var(--text-icon-color, #161616);
+  margin: 0;
 }
 
 /* Kapatma Düğmesi */
@@ -68,7 +68,7 @@
 
 /* Kapatma İkonu */
 .closeIcon {
-  color: #121212; /* İkon rengi siyah */
+  color: var(--text-icon-color, #161616);
   fill: none;
 }
 
@@ -91,19 +91,20 @@
   background: transparent;
   border: none;
   cursor: pointer;
-  border-radius: 8px;
-  transition: background-color 0.1s;
+  border-radius: 10px;
+  transition: background-color 0.2s ease, color 0.2s ease;
 }
 
 /* ... (Hover ve İkon Stilleri) ... */
 
 .moveButton:hover {
-  color: #bedbb0;
+  background: rgba(190, 219, 176, 0.12);
 }
 
 .buttonText {
   font-size: 14px;
-  color: #121212;
+  color: var(--text-icon-color, #161616);
+  transition: color 0.2s ease;
 }
 
 .moveButton:hover .buttonText {
@@ -111,13 +112,34 @@
 }
 
 .iconArrow {
-  stroke: #121212;
+  color: var(--text-icon-color, #161616);
+  stroke: currentColor;
   fill: none;
   flex-shrink: 0;
-  transition: stroke 0.2s;
+  transition: color 0.2s ease;
 }
 
 .moveButton:hover .iconArrow {
+  color: #bedbb0;
+}
+
+:global(body.violet) .moveButton:hover {
+  background: rgba(82, 85, 188, 0.12);
+}
+:global(body.violet) .moveButton:hover .buttonText,
+:global(body.violet) .moveButton:hover .iconArrow {
+  color: #5255bc;
+}
+
+.moveButton:active {
+  background: rgba(190, 219, 176, 0.12);
+}
+
+.moveButton:active .buttonText {
+  color: #bedbb0;
+}
+
+.moveButton:active .iconArrow {
   stroke: #bedbb0;
 }
 

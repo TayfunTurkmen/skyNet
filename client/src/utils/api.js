@@ -14,7 +14,7 @@ api.interceptors.request.use(
     if (storedAuth) {
       const auth = JSON.parse(storedAuth);
       if (auth.token) {
-        config.headers['x-auth-token'] = auth.token;
+        config.headers['Authorization'] = `Bearer ${auth.token}`;
       }
     }
     return config;
@@ -43,8 +43,8 @@ api.interceptors.response.use(
         }
 
         const rs = await axios.post(
-          `${API_BASE_URL}/auth/refresh-token`, 
-          { refreshToken: refreshToken } 
+          `${API_BASE_URL}/auth/refresh-token`,
+          { refreshToken: refreshToken }
         );
         
         const { token: newToken, user, refreshToken: newRefreshToken } = rs.data; 
@@ -58,7 +58,7 @@ api.interceptors.response.use(
           })
         );
         
-        originalRequest.headers['x-auth-token'] = newToken;
+        originalRequest.headers['Authorization'] = `Bearer ${newToken}`;
 
         return api(originalRequest);
 

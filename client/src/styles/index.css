@@ -5,8 +5,8 @@
 }
 
 :root {
-  --bg-gradient-start: #f8f8f8;
-  --bg-gradient-end: #e0f2e0;
+  --bg-gradient-start: #ffffff;
+  --bg-gradient-end: #ffffff;
   --dark-bg: #1f1f1f;
   --dark-bg-alt: #151515;
   --text-primary: #1f1f1f;
@@ -25,7 +25,8 @@ body {
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;
   min-height: 100vh;
-  background: linear-gradient(180deg, var(--bg-gradient-start) 0%, var(--bg-gradient-end) 100%);
+  background: var(--primary-bg-color, #ffffff);
+  color: var(--text-icon-color, #161616);
 }
 
 #root {
@@ -57,6 +58,14 @@ body.light {
   --border-color: #ebebeb; /* Kenarlık Rengi: Kart kenarları, inputlar */
   --text-icon-color: #161616; /* Genel Metin ve İkon Rengi (Tam opaklık önerilir) */
   --low-priority-color: #bedbb0; /* Ek: Eğer 'Low' etiketine özel bir renk gerekiyorsa */
+  --button-primary: #bedbb0;
+  --button-primary-text: #121212;
+  --surface-color: #ffffff;
+  --card-bg: #ffffff;
+  --card-border: #e0e0e0;
+  --card-muted: #4b5563;
+  --input-bg: #ffffff;
+  --sidebar-muted: #8c8c8c;
 }
 
 body.dark {
@@ -67,6 +76,14 @@ body.dark {
   --low-priority-color: #bedbb0; /* Düşük Öncelik Etiketi Rengi */
   --border-color: #4a4a4a; /* Kenarlık Rengi (Eski --border-bg yerine) */
   --text-icon-color: #ffffff;
+  --button-primary: #bedbb0;
+  --button-primary-text: #121212;
+  --surface-color: #1f1f1f;
+  --card-bg: #1c1c1c;
+  --card-border: #2c2c2c;
+  --card-muted: #9ca3af;
+  --input-bg: #161616;
+  --sidebar-muted: rgba(255,255,255,0.5);
 }
 
 body.violet {
@@ -77,4 +94,11 @@ body.violet {
   --low-priority-color: #b8bcfd; /* Düşük Öncelik Etiketi Rengi */
   --border-color: #ebebeb; /* Kenarlık Rengi (Eski --border-bg yerine) */
   --text-icon-color: #161616;
+  --button-primary: #5255bc;
+  --button-primary-text: #ffffff;
+  --surface-color: #ffffff;
+  --card-bg: #ffffff;
+  --card-border: #dcdcf5;
+  --card-muted: #6b6b6b;
+  --input-bg: #ffffff;
 }

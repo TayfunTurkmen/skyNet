@@ -1,6 +1,4 @@
-import React, { useState, useEffect, useRef } from "react";
-import { useDispatch } from "react-redux";
-import { createBoard, updateBoard } from "../../redux/slices/boardsSlice";
+import React, { useState, useEffect } from "react";
 import SvgIcon from "./SvgIcon";
 import styles from "./NewBoardModal.module.css";
 import api from "../../utils/api";
@@ -36,19 +34,14 @@ const BACKGROUNDS = [
   "15_gueaym",
 ];
 
-function NewBoardModal({ onClose, isEditMode = false, initialData = {} }) {
-  const dispatch = useDispatch();
-
+function NewBoardModal({ onClose, isEditMode = false, initialData = {}, onBoardCreated, onBoardUpdated }) {
   const [title, setTitle] = useState("");
   const [selectedIcon, setSelectedIcon] = useState(ICONS[0]);
   const cleanInitialBg = initialData?.background ? initialData.background.replace(".jpg", "") : BACKGROUNDS[0];
   const [selectedBg, setSelectedBg] = useState(cleanInitialBg);
 
   const [loading, setLoading] = useState(false);
-  const [uploading, setUploading] = useState(false);
   const [error, setError] = useState("");
-
-  const fileInputRef = useRef(null);
 
   useEffect(() => {
     if (isEditMode && initialData) {
@@ -62,29 +55,6 @@ function NewBoardModal({ onClose, isEditMode = false, initialData = {} }) {
       setSelectedBg(BACKGROUNDS[0]);
     }
   }, [isEditMode, initialData]);
-
-  const handleFileChange = async (e) => {
-    const file = e.target.files[0];
-    if (!file) return;
-
-    const formData = new FormData();
-    formData.append("image", file);
-
-    setUploading(true);
-    setError("");
-
-    try {
-      const res = await api.post("/boards/upload-bg", formData, {
-        headers: { "Content-Type": "multipart/form-data" },
-      });
-      setSelectedBg(res.data.bgId);
-    } catch (err) {
-      console.error("Upload error:", err);
-      setError("Image upload failed");
-    } finally {
-      setUploading(false);
-    }
-  };
 
   const handleSubmit = async (e) => {
     e.preventDefault();
@@ -101,9 +71,12 @@ function NewBoardModal({ onClose, isEditMode = false, initialData = {} }) {
 
     try {
       if (isEditMode) {
-        await dispatch(updateBoard({ boardId: initialData._id, boardData })).unwrap();
+        await onBoardUpdated?.({ ...initialData, ...boardData });
       } else {
-        await dispatch(createBoard(boardData)).unwrap();
+        const created = await onBoardCreated?.(boardData);
+        if (!created) {
+          throw new Error("Board could not be created");
+        }
       }
 
       onClose();
@@ -143,7 +116,7 @@ function NewBoardModal({ onClose, isEditMode = false, initialData = {} }) {
                 className={`${styles.iconOption} ${selectedIcon === icon ? styles.selected : ""}`}
                 onClick={() => setSelectedIcon(icon)}
               >
-                <SvgIcon iconName={icon} size={18} />
+                <SvgIcon iconName={icon} size={18} fill="none" strokeWidth={2} />
               </div>
             ))}
           </div>
@@ -152,23 +125,17 @@ function NewBoardModal({ onClose, isEditMode = false, initialData = {} }) {
           <div className={styles.backgroundGrid}>
             <div
               className={styles.bgOption}
-              style={{ backgroundColor: "#2a2a2a", display: "flex", alignItems: "center", justifyContent: "center" }}
-              onClick={() => fileInputRef.current.click()}
+              style={{
+                backgroundColor: "var(--primary-bg-color, #1f1f1f)",
+                display: "flex",
+                alignItems: "center",
+                justifyContent: "center",
+                color: "var(--text-icon-color, #121212)",
+              }}
             >
-              {uploading ? (
-                <span style={{ fontSize: "10px", color: "#888" }}>...</span>
-              ) : (
-                <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="#fff" strokeWidth="2">
-                  <path d="M12 5v14M5 12h14" />
-                </svg>
-              )}
-              <input
-                type="file"
-                ref={fileInputRef}
-                style={{ display: "none" }}
-                accept="image/*"
-                onChange={handleFileChange}
-              />
+              <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2">
+                <path d="M12 5v14M5 12h14" />
+              </svg>
             </div>
 
             {BACKGROUNDS.map((bgName, index) => (
@@ -177,7 +144,7 @@ function NewBoardModal({ onClose, isEditMode = false, initialData = {} }) {
                 className={`${styles.bgOption} ${selectedBg === bgName ? styles.selected : ""}`}
                 onClick={() => setSelectedBg(bgName)}
                 style={{
-                  backgroundColor: bgName === "default" ? "#2a2a2a" : "transparent",
+                  backgroundColor: bgName === "default" ? "var(--primary-bg-color, #1f1f1f)" : "transparent",
                   backgroundImage:
                     bgName !== "default" ? `url(${CLOUDINARY_BASE_URL}/w_64,h_64,c_fill,q_auto/${bgName}.jpg)` : "none",
                   backgroundSize: "cover",
@@ -200,7 +167,7 @@ function NewBoardModal({ onClose, isEditMode = false, initialData = {} }) {
 
           {error && <p className={styles.errorText}>{error}</p>}
 
-          <button type="submit" className={styles.createButton} disabled={loading || uploading}>
+          <button type="submit" className={styles.createButton} disabled={loading}>
             <div className={styles.btnIconBox}>+</div>
             {loading ? "Processing..." : isEditMode ? "Edit" : "Create"}
           </button>

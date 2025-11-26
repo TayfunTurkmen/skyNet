@@ -8,7 +8,13 @@ import styles from "./Card.module.css";
 import SvgIcon from "../DashboardForm/SvgIcon";
 
 const getPriorityColor = (priorityName) => {
+  const isViolet = typeof document !== "undefined" && document.body.classList.contains("violet");
   const label = LABELS.find((label) => label.name === priorityName);
+
+  if (isViolet && priorityName === "Low") {
+    return "#5255bc";
+  }
+
   return label ? label.color : LABELS.find((l) => l.name === "Without").color;
 };
 

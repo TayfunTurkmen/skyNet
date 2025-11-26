@@ -1,20 +1,31 @@
-import React, { useState, useEffect } from "react";
+import React, { useState, useEffect, useMemo } from "react";
 import { useDispatch, useSelector } from "react-redux";
-import { useNavigate } from "react-router-dom";
+import { useNavigate, useLocation, useParams } from "react-router-dom";
 import Sidebar from "../../components/DashboardForm/Sidebar";
 import NewBoardModal from "../../components/DashboardForm/NewBoardModal";
 import DeleteModal from "../../components/DashboardForm/DeleteModal";
 import AddColumnModal from "../../components/Modals/AddColumnModal/AddColumnModal";
 import Column from "../../components/Column/Column.jsx";
-import { fetchBoards, createBoard, updateBoard, deleteBoard, selectBoard } from "../../redux/slices/boardsSlice";
+import Navbar from "../../components/Header/Navbar.jsx";
+import FilterModal from "../../components/Modals/FilterModal/FilterModal";
+import {
+  fetchBoards,
+  createBoard,
+  updateBoard,
+  deleteBoard,
+  selectBoard,
+  clearCurrentBoard,
+} from "../../redux/slices/boardsSlice";
 import { createColumn, deleteColumn, fetchColumns, updateColumn } from "../../redux/slices/columnsSlice.js";
-import { AUTH_STORAGE_KEY, CLOUDINARY_BASE_URL, API_BASE_URL } from "../../config";
+import { AUTH_STORAGE_KEY, CLOUDINARY_BASE_URL } from "../../config";
 import styles from "./DashboardPage.module.css";
-import HomePage from "../HomePage/HomePage.jsx";
+import SvgIcon from "../../components/DashboardForm/SvgIcon";
 
 function DashboardPage() {
   const dispatch = useDispatch();
   const navigate = useNavigate();
+  const location = useLocation();
+  const { boardId: routeBoardId } = useParams();
 
   // 💡 Board ve Kolon verileri Redux'tan çekildi
   const { items: userBoards, currentBoard, isLoading: loadingBoards } = useSelector((state) => state.boards);
@@ -28,21 +39,30 @@ function DashboardPage() {
   const [boardToEdit, setBoardToEdit] = useState(null);
   const [boardToDeleteId, setBoardToDeleteId] = useState(null);
   const [isAddColumnModalOpen, setIsAddColumnModalOpen] = useState(false);
+  const [isFilterModalOpen, setIsFilterModalOpen] = useState(false);
+  const [labelFilter, setLabelFilter] = useState(null); // null => show all
+  const [activeTheme, setActiveTheme] = useState(() => localStorage.getItem("taskProTheme") || "light");
 
   useEffect(() => {
     dispatch(fetchBoards());
   }, [dispatch]);
 
-  // 💡 currentBoard değiştiğinde Kolonları Redux'a yükle
+  // Tema değişimi
   useEffect(() => {
-    if (!currentBoard) return;
+    const themes = ["light", "dark", "violet"];
+    themes.forEach((t) => document.body.classList.remove(t));
+    document.body.classList.add(activeTheme);
+    localStorage.setItem("taskProTheme", activeTheme);
+  }, [activeTheme]);
 
-    const fetchAllColumns = () => {
-      dispatch(fetchColumns(currentBoard._id));
-    };
-
-    fetchAllColumns();
-  }, [currentBoard, dispatch]);
+  const storedUser = useMemo(() => {
+    try {
+      const raw = localStorage.getItem(AUTH_STORAGE_KEY);
+      return raw ? JSON.parse(raw)?.user : null;
+    } catch (err) {
+      return null;
+    }
+  }, []);
 
   // ------------------ Helpers ------------------
   const toggleSidebar = () => setIsSidebarOpen(!isSidebarOpen);
@@ -50,6 +70,7 @@ function DashboardPage() {
   const handleActiveBoardChange = (id) => {
     dispatch(selectBoard(id));
     setIsSidebarOpen(false);
+    navigate(`/dashboard/${id}`, { replace: true });
   };
 
   const handleLogout = () => {
@@ -77,9 +98,17 @@ function DashboardPage() {
     setIsDeleteModalToOpen(true);
   };
 
-  const handleBoardCreated = (newBoard) => {
-    dispatch(createBoard(newBoard));
-    setIsModalOpen(false);
+  const handleBoardCreated = async (boardData) => {
+    try {
+      const createdBoard = await dispatch(createBoard(boardData)).unwrap();
+      if (createdBoard?._id) {
+        dispatch(selectBoard(createdBoard._id));
+        navigate(`/dashboard/${createdBoard._id}`, { replace: true });
+      }
+      return createdBoard;
+    } finally {
+      setIsModalOpen(false);
+    }
   };
 
   const handleBoardUpdated = (updatedBoard) => {
@@ -87,10 +116,22 @@ function DashboardPage() {
     setIsModalOpen(false);
   };
 
-  const confirmDeleteBoard = () => {
+  const confirmDeleteBoard = async () => {
     if (!boardToDeleteId) return;
-    dispatch(deleteBoard(boardToDeleteId));
-    setIsDeleteModalToOpen(false);
+    const deletedId = boardToDeleteId;
+    try {
+      await dispatch(deleteBoard(deletedId)).unwrap();
+      const remaining = userBoards.filter((b) => b._id !== deletedId);
+      if (remaining.length > 0) {
+        dispatch(selectBoard(remaining[0]._id));
+        navigate(`/dashboard/${remaining[0]._id}`, { replace: true });
+      } else {
+        dispatch(clearCurrentBoard());
+        navigate("/home", { replace: true });
+      }
+    } finally {
+      setIsDeleteModalToOpen(false);
+    }
   };
 
   const handleToggleFavorite = (id, status) => {
@@ -131,6 +172,45 @@ function DashboardPage() {
     }
   };
 
+  // Route param ile board seçimi
+  useEffect(() => {
+    if (!userBoards.length) return;
+
+    if (location.pathname.startsWith("/home")) {
+      dispatch(clearCurrentBoard());
+      return;
+    }
+
+    if (routeBoardId) {
+      dispatch(selectBoard(routeBoardId));
+    } else if (location.pathname.startsWith("/dashboard")) {
+      dispatch(clearCurrentBoard());
+      navigate("/home", { replace: true });
+    }
+  }, [routeBoardId, userBoards.length, dispatch, navigate, location.pathname]);
+
+  // Board listesi var ama rota yoksa ilk boarda otomatik gir
+  useEffect(() => {
+    if (!userBoards.length) return;
+    if (location.pathname.startsWith("/home") && !routeBoardId) {
+      const first = userBoards[0];
+      if (first?._id) {
+        dispatch(selectBoard(first._id));
+        navigate(`/dashboard/${first._id}`, { replace: true });
+      }
+    }
+    if (location.pathname.startsWith("/dashboard") && !routeBoardId && currentBoard?._id) {
+      navigate(`/dashboard/${currentBoard._id}`, { replace: true });
+    }
+  }, [userBoards, routeBoardId, currentBoard?._id, location.pathname, navigate, dispatch]);
+
+  // currentBoard değişince ve /dashboard'da isek kolonları çek
+  useEffect(() => {
+    if (!currentBoard) return;
+    if (!location.pathname.startsWith("/dashboard")) return;
+    dispatch(fetchColumns(currentBoard._id));
+  }, [currentBoard, dispatch, location.pathname]);
+
   // ------------------ Background ------------------
   let bgImage = null;
   if (currentBoard && currentBoard.background && currentBoard.background !== "default") {
@@ -162,16 +242,7 @@ function DashboardPage() {
       />
 
       {/* Main Content */}
-      <main
-        className={styles.mainContent}
-        style={{
-          backgroundImage: bgImage,
-          backgroundSize: "cover",
-          backgroundPosition: "center",
-          backgroundRepeat: "no-repeat",
-          backgroundColor: bgImage ? "transparent" : "#f4f7f6",
-        }}
-      >
+      <main className={styles.mainContent}>
         <header className={styles.mainHeader}>
           <button className={styles.menuButton} onClick={toggleSidebar}>
             <svg
@@ -179,7 +250,7 @@ function DashboardPage() {
               height="24"
               viewBox="0 0 24 24"
               fill="none"
-              stroke={bgImage ? "#fff" : "#121212"}
+              stroke="#121212"
               strokeWidth="2"
             >
               <line x1="3" y1="12" x2="21" y2="12" />
@@ -188,89 +259,76 @@ function DashboardPage() {
             </svg>
           </button>
 
-          <h1
-            style={{
-              color: bgImage ? "#fff" : "#121212",
-              textShadow: bgImage ? "0 1px 4px rgba(0,0,0,0.8)" : "none",
-            }}
-          >
-            {currentBoard ? currentBoard.title : "Dashboard"}
-          </h1>
+          <Navbar title="" activeTheme={activeTheme} onThemeChange={setActiveTheme} user={storedUser} />
         </header>
 
-        {/* Columns */}
-        {currentBoard ? (
-          <div className={styles.boardColumnsContainer}>
-            {/* 💡 Yükleniyor Durumu */}
-            {loadingColumns ? (
-              <p style={{ padding: "20px", color: bgImage ? "#fff" : "#121212" }}>Kolonlar Yükleniyor...</p>
-            ) : (
-              // 💡 Kolonlar Redux'tan alınan columnsData üzerinden render ediliyor
-              columnsData?.map(
-                (col) =>
-                  col && (
-                    <Column
-                      key={col._id}
-                      column={col}
-                      onEdit={handleEditColumn}
-                      onDelete={() => handleDeleteColumn(col._id)}
-                    />
-                  )
-              )
-            )}
-
-            {/* Add Column Button */}
-            <button
-              style={{
-                minWidth: "335px",
-                height: "56px",
-                background: "#ffffff",
-                borderRadius: "8px",
-                border: "none",
-                cursor: "pointer",
-                display: "flex",
-                alignItems: "center",
-                justifyContent: "center",
-                gap: "8px",
-                fontWeight: "500",
-                fontSize: "14px",
-                color: "#121212",
-                flexShrink: 0,
-              }}
-              onClick={() => setIsAddColumnModalOpen(true)}
-              disabled={loadingColumns} // Yüklenirken butonu devre dışı bırak
-            >
-              <span
-                style={{
-                  background: "#121212",
-                  color: "#fff",
-                  borderRadius: "4px",
-                  width: "28px",
-                  height: "28px",
-                  display: "flex",
-                  alignItems: "center",
-                  justifyContent: "center",
-                }}
-              >
-                +
-              </span>
-              Add another column
+        <div
+          className={styles.boardArea}
+          style={{
+            backgroundImage: bgImage || "none",
+            backgroundSize: "cover",
+            backgroundPosition: "center",
+            backgroundRepeat: "no-repeat",
+            backgroundColor: bgImage ? "transparent" : "var(--primary-bg-color, #f4f5fb)",
+          }}
+        >
+          <div className={styles.boardTopBar}>
+            <div className={styles.boardTitleGroup}>
+              {currentBoard?.icon && (
+                <SvgIcon iconName={currentBoard.icon} size={22} className={styles.boardTitleIcon} />
+              )}
+              <h1 className={styles.boardTitle}>{currentBoard ? currentBoard.title : ""}</h1>
+            </div>
+            <button type="button" className={styles.filterButton} title="Filters" onClick={() => setIsFilterModalOpen(true)}>
+              <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2">
+                <path d="M3 5h18L14 12.5V19l-4 2v-8.5L3 5z" />
+              </svg>
+              Filters
             </button>
+          </div>
 
-            {/* Add Column Modal */}
-            {isAddColumnModalOpen && (
-              <AddColumnModal
-                isOpen={isAddColumnModalOpen}
-                onClose={() => setIsAddColumnModalOpen(false)}
-                onSubmit={handleAddColumn}
-              />
-            )}
-          </div>
-        ) : (
-          <div style={{ padding: "20px", color: bgImage ? "#fff" : "#000" }}>
-            Lütfen soldaki menüden bir board seçin veya yeni bir tane oluşturun.
-          </div>
-        )}
+          {!currentBoard || !location.pathname.startsWith("/dashboard") ? (
+            <div className={styles.emptyState}>
+              <p>
+                Before starting your project, it is essential <span className={styles.highlight}>to create a board</span> to visualize and
+                track all the necessary tasks and milestones. This board serves as a powerful tool to organize the workflow
+                and ensure effective collaboration among team members.
+              </p>
+            </div>
+          ) : (
+            <div className={styles.boardColumnsContainer}>
+              {loadingColumns ? (
+                <p style={{ padding: "20px", color: bgImage ? "#fff" : "#121212" }}>Kolonlar Yükleniyor...</p>
+              ) : (
+                columnsData?.map(
+                  (col) =>
+                    col && (
+                      <Column
+                        key={col._id}
+                        column={col}
+                        onEdit={handleEditColumn}
+                        onDelete={() => handleDeleteColumn(col._id)}
+                        filterPriority={labelFilter}
+                      />
+                    )
+                )
+              )}
+
+              <button className={styles.addColumnButton} onClick={() => setIsAddColumnModalOpen(true)} disabled={loadingColumns}>
+                <span className={styles.addColumnPlusBox}>+</span>
+                Add another column
+              </button>
+
+              {isAddColumnModalOpen && (
+                <AddColumnModal
+                  isOpen={isAddColumnModalOpen}
+                  onClose={() => setIsAddColumnModalOpen(false)}
+                  onSubmit={handleAddColumn}
+                />
+              )}
+            </div>
+          )}
+        </div>
       </main>
 
       {/* Modals */}
@@ -290,6 +348,15 @@ function DashboardPage() {
           onClose={() => setIsDeleteModalToOpen(false)}
           onConfirm={confirmDeleteBoard}
           title="Delete board"
+        />
+      )}
+
+      {isFilterModalOpen && <FilterModal onClose={() => setIsFilterModalOpen(false)} />}
+      {isFilterModalOpen && (
+        <FilterModal
+          selectedFilter={labelFilter}
+          onSelectFilter={(val) => setLabelFilter(val)}
+          onClose={() => setIsFilterModalOpen(false)}
         />
       )}
     </div>

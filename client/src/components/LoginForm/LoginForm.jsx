@@ -61,7 +61,7 @@ function LoginForm() {
       );
 
   
-      navigate('/dashboard', { replace: true });
+      navigate('/home', { replace: true });
     
 
     } catch (error) {

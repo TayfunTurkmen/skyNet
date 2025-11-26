@@ -1,13 +1,18 @@
 .container {
   width: 212px;
-  background: #1F1F1F;
+  background: var(--primary-bg-color, #1F1F1F);
   margin: 24px;
   padding: 20px;
   border-radius: 8px;
   cursor: pointer;
-  color: white;
+  color: var(--text-icon-color, #ffffff);
   font-family: sans-serif;
   box-sizing: border-box; /* Padding taşmasın */
+}
+
+:global(body.violet) .container {
+  background: #b8bcfd;
+  color: #161616;
 }
 
 .plantImage {
@@ -22,7 +27,7 @@
 }
 
 .highlight {
-  color: #BEDBB0;
+  color: var(--button-primary, #BEDBB0);
   font-weight: bold;
 }
 
@@ -32,8 +37,19 @@
   gap: 8px;
   font-size: 12px;
   font-weight: 600;
-  color: white;
+  color: var(--text-icon-color, #ffffff);
   text-decoration: none;
+}
+
+.helpLink svg {
+  color: var(--text-icon-color, #161616);
+  stroke: currentColor;
+  fill: none;
+}
+
+:global(body.light) .helpLink svg {
+  color: #161616;
+  stroke: #161616;
 }
 
 /* --- MODAL STİLLERİ --- */
@@ -52,11 +68,15 @@
 
 .modalContent {
   width: 400px;
-  background-color: #151515; /* Koyu tema uyumu */
+  background-color: var(--primary-bg-color, #f6f6f7);
   padding: 24px;
   border-radius: 8px;
-  box-shadow: 0 10px 25px rgba(0,0,0,0.5);
-  color: #fff;
+  box-shadow: 0 10px 25px rgba(0,0,0,0.2);
+  color: var(--text-icon-color, #161616);
+}
+
+:global(body.violet) .modalContent {
+  background-color: #b8bcfd;
 }
 
 .modalTitle {
@@ -68,10 +88,10 @@
 .input, .textarea {
   width: 100%;
   padding: 12px;
-  background-color: #1F1F1F;
-  border: 1px solid #BEDBB0;
+  background-color: var(--input-bg, #ffffff);
+  border: 1px solid var(--border-color, #BEDBB0);
   border-radius: 8px;
-  color: #fff;
+  color: var(--text-icon-color, #161616);
   font-size: 14px;
   box-sizing: border-box;
   margin-bottom: 16px;
@@ -81,8 +101,8 @@
 .sendButton {
   width: 100%;
   padding: 12px;
-  background-color: #BEDBB0;
-  color: #121212;
+  background-color: var(--button-primary, #BEDBB0);
+  color: var(--button-primary-text, #121212);
   border: none;
   border-radius: 8px;
   font-weight: 600;

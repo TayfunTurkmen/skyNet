@@ -11,7 +11,9 @@ const icons = {
     </>
   ),
   "icon-star": (
-    <path d="M16 2.667l2.683 6.975c0.376 0.978 0.564 1.466 0.856 1.878 0.259 0.364 0.577 0.683 0.942 0.942 0.411 0.292 0.9 0.48 1.878 0.856l6.975 2.683-6.975 2.683c-0.978 0.376-1.466 0.564-1.878 0.856-0.364 0.259-0.683 0.577-0.942 0.942-0.292 0.411-0.48 0.9-0.856 1.878l-2.683 6.975-2.683-6.975c-0.376-0.978-0.564-1.466-0.856-1.878-0.259-0.364-0.578-0.683-0.942-0.942-0.292-0.411 0.48-0.9 0.856-1.878l2.683-6.975z" />
+    <g transform="translate(2 2) scale(0.8)">
+      <path d="M16 2.667l2.683 6.975c0.376 0.978 0.564 1.466 0.856 1.878 0.259 0.364 0.577 0.683 0.942 0.942 0.411 0.292 0.9 0.48 1.878 0.856l6.975 2.683-6.975 2.683c-0.978 0.376-1.466 0.564-1.878 0.856-0.364 0.259-0.683 0.577-0.942 0.942-0.292 0.411-0.48 0.9-0.856 1.878l-2.683 6.975-2.683-6.975c-0.376-0.978-0.564-1.466-0.856-1.878-0.259-0.364-0.578-0.683-0.942-0.942-0.292-0.411 0.48-0.9 0.856-1.878l2.683-6.975z" />
+    </g>
   ),
   "icon-loading": (
     <path d="M4.454 22.666c-1.67-2.893-0.821-6.58 1.944-8.453l0.003-0.003c2.221-1.501 5.143-1.45 7.312 0.126l4.576 3.327c2.167 1.576 5.090 1.627 7.312 0.126l0.003-0.003c2.766-1.872 3.616-5.563 1.943-8.453M22.669 27.546c-2.893 1.669-6.58 0.821-8.453-1.944l-0.003-0.003c-1.501-2.221-1.45-5.143 0.126-7.312l3.327-4.576c1.576-2.167 1.627-5.090 0.126-7.312l-0.006-0.003c-1.872-2.763-5.563-3.615-8.453-1.942M25.427 6.572c5.207 5.207 5.207 13.648 0 18.855s-13.648 5.207-18.855 0c-5.207-5.207-5.207-13.648 0-18.855s13.648-5.207 18.855 0z" />
@@ -139,6 +141,27 @@ const icons = {
         strokeLinejoin="round"
         strokeWidth="1.5"
         d="M16.867 11.533 21.334 16l-4.467 4.467"
+      />
+    </>
+  ),
+
+  "icon-logout": (
+    <>
+      <path
+        fill="none"
+        stroke="currentColor"
+        strokeLinecap="round"
+        strokeLinejoin="round"
+        strokeWidth="2"
+        d="M20 8V6c0-1.105-0.895-2-2-2h-8c-1.105 0-2 0.895-2 2v20c0 1.105 0.895 2 2 2h8c1.105 0 2-0.895 2-2v-2"
+      />
+      <path
+        fill="none"
+        stroke="currentColor"
+        strokeLinecap="round"
+        strokeLinejoin="round"
+        strokeWidth="2"
+        d="M28 16H12m8-6 8 6-8 6"
       />
     </>
   ),
@@ -282,7 +305,16 @@ const icons = {
   ),
 };
 
-function SvgIcon({ iconName, size = 18, className, viewBox = "0 0 32 32", color = "currentColor", ...props }) {
+function SvgIcon({
+  iconName,
+  size = 18,
+  className,
+  viewBox = "0 0 32 32",
+  color = "currentColor",
+  fill = "currentColor",
+  strokeWidth,
+  ...props
+}) {
   const content = icons[iconName] || icons["default"];
 
   return (
@@ -290,10 +322,9 @@ function SvgIcon({ iconName, size = 18, className, viewBox = "0 0 32 32", color 
       width={size}
       height={size}
       viewBox={viewBox}
-      fill="none"
-      // color prop'unu kullanabilir veya CSS'ten gelen currentColor'ı bırakabilirsiniz
+      fill={fill ?? "currentColor"}
       stroke={color}
-      strokeWidth="0" // Çoğu ikon kendi strokeWidth'ine sahip olduğu için 0 yaptım, gerekirse artırın
+      strokeWidth={strokeWidth}
       className={className}
       style={{ minWidth: size }}
       {...props}

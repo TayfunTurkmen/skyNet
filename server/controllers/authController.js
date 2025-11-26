@@ -6,6 +6,8 @@ const User = require('../models/User');
 const generateToken = require('../utils/generateToken');
 const generateRefreshToken = require('../utils/generateRefreshToken');
 const sendPasswordResetEmail = require('../utils/sendPasswordResetEmail');
+const fs = require('fs');
+const path = require('path');
 
 const buildUserResponse = (userDoc) => ({
   id: userDoc._id,
@@ -317,5 +319,47 @@ exports.resetPassword = async (req, res, next) => {
     });
   } catch (error) {
     next(error);
+  }
+};
+
+exports.getProfile = async (req, res) => {
+  try {
+    if (!req.user) return res.status(401).json({ message: 'Unauthorized' });
+    const user = await User.findById(req.user.userId);
+    if (!user) return res.status(404).json({ message: 'User not found' });
+    return res.status(200).json({ user: buildUserResponse(user) });
+  } catch (error) {
+    console.error('getProfile error:', error);
+    return res.status(500).json({ message: 'Server error' });
+  }
+};
+
+exports.updateProfile = async (req, res) => {
+  try {
+    if (!req.user) return res.status(401).json({ message: 'Unauthorized' });
+
+    const user = await User.findById(req.user.userId);
+    if (!user) return res.status(404).json({ message: 'User not found' });
+
+    const { name, email, password } = req.body;
+    if (name) user.name = name.trim();
+    if (email) user.email = normalizeEmailInput(email);
+    if (password) user.password = password;
+
+    if (req.file) {
+      user.avatarURL = `/uploads/${req.file.filename}`;
+    }
+
+    await user.save();
+
+    await sendAuthResponse({
+      res,
+      user,
+      statusCode: 200,
+      message: 'Profile updated successfully',
+    });
+  } catch (error) {
+    console.log(error);
+    res.status(500).json({ message: 'Server error' });
   }
 };

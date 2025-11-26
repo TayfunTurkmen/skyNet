@@ -1,13 +1,13 @@
 import { createSlice, createAsyncThunk } from "@reduxjs/toolkit";
-import axios from "axios";
-import { API_BASE_URL, AUTH_STORAGE_KEY } from "../../config";
+import api from "../../utils/api";
+import { AUTH_STORAGE_KEY } from "../../config";
 
 export const fetchBoards = createAsyncThunk("boards/fetchBoards", async (_, { rejectWithValue }) => {
   try {
     const auth = JSON.parse(localStorage.getItem(AUTH_STORAGE_KEY));
     const token = auth?.token;
 
-    const response = await axios.get(`${API_BASE_URL}/boards`, {
+    const response = await api.get(`/boards`, {
       headers: { Authorization: `Bearer ${token}` },
     });
 
@@ -21,7 +21,7 @@ export const createBoard = createAsyncThunk("boards/createBoard", async (boardDa
   try {
     const auth = JSON.parse(localStorage.getItem(AUTH_STORAGE_KEY));
     const token = auth?.token;
-    const response = await axios.post(`${API_BASE_URL}/boards`, boardData, {
+    const response = await api.post(`/boards`, boardData, {
       headers: { Authorization: `Bearer ${token}` },
     });
     return response.data;
@@ -37,7 +37,7 @@ export const updateBoard = createAsyncThunk(
     try {
       const auth = JSON.parse(localStorage.getItem(AUTH_STORAGE_KEY));
       const token = auth?.token;
-      const response = await axios.put(`${API_BASE_URL}/boards/${boardId}`, boardData, {
+      const response = await api.put(`/boards/${boardId}`, boardData, {
         headers: { Authorization: `Bearer ${token}` },
       });
       return response.data;
@@ -51,7 +51,7 @@ export const deleteBoard = createAsyncThunk("boards/deleteBoard", async (boardId
   try {
     const auth = JSON.parse(localStorage.getItem(AUTH_STORAGE_KEY));
     const token = auth?.token;
-    await axios.delete(`${API_BASE_URL}/boards/${boardId}`, { headers: { Authorization: `Bearer ${token}` } });
+    await api.delete(`/boards/${boardId}`, { headers: { Authorization: `Bearer ${token}` } });
     return boardId;
   } catch (error) {
     return rejectWithValue(error.response?.data || error.message);
@@ -73,6 +73,9 @@ const boardsSlice = createSlice({
         state.currentBoard = board;
       }
     },
+    clearCurrentBoard: (state) => {
+      state.currentBoard = null;
+    },
   },
   extraReducers: (builder) => {
     builder
@@ -83,9 +86,7 @@ const boardsSlice = createSlice({
       .addCase(fetchBoards.fulfilled, (state, action) => {
         state.isLoading = false;
         state.items = action.payload;
-        if (action.payload.length > 0) {
-          state.currentBoard = action.payload[0];
-        }
+        // currentBoard seçimi rota bazlı yapılacak
       })
       .addCase(fetchBoards.rejected, (state, action) => {
         state.isLoading = false;
@@ -122,5 +123,5 @@ const boardsSlice = createSlice({
   },
 });
 
-export const { selectBoard } = boardsSlice.actions;
+export const { selectBoard, clearCurrentBoard } = boardsSlice.actions;
 export default boardsSlice.reducer;
