@@ -20,7 +20,7 @@ const toTitleCase = (str) => {
     .join(" ");
 };
 
-function Column({ column, onEdit, onDelete }) {
+function Column({ column, onEdit, onDelete, filterPriority = null }) {
   const dispatch = useDispatch();
   const selectCards = selectCardsByColumn();
   const cards = useSelector((state) => selectCards(state, column._id));
@@ -87,8 +87,10 @@ function Column({ column, onEdit, onDelete }) {
 
       {/* Cards Container */}
       <div className={styles.cardsContainer}>
-        {cards.length > 0 ? (
-          cards.map((card) => <Card key={card._id} card={card} columnId={column._id} />)
+        {cards.filter((c) => !filterPriority || c.priority === filterPriority).length > 0 ? (
+          cards
+            .filter((c) => !filterPriority || c.priority === filterPriority)
+            .map((card) => <Card key={card._id} card={card} columnId={column._id} />)
         ) : (
           <p className={styles.noCardsText}>No Card</p>
         )}

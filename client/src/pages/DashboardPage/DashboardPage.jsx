@@ -7,6 +7,7 @@ import DeleteModal from "../../components/DashboardForm/DeleteModal";
 import AddColumnModal from "../../components/Modals/AddColumnModal/AddColumnModal";
 import Column from "../../components/Column/Column.jsx";
 import Navbar from "../../components/Header/Navbar.jsx";
+import FilterModal from "../../components/Modals/FilterModal/FilterModal";
 import {
   fetchBoards,
   createBoard,
@@ -38,6 +39,8 @@ function DashboardPage() {
   const [boardToEdit, setBoardToEdit] = useState(null);
   const [boardToDeleteId, setBoardToDeleteId] = useState(null);
   const [isAddColumnModalOpen, setIsAddColumnModalOpen] = useState(false);
+  const [isFilterModalOpen, setIsFilterModalOpen] = useState(false);
+  const [labelFilter, setLabelFilter] = useState(null); // null => show all
   const [activeTheme, setActiveTheme] = useState(() => localStorage.getItem("taskProTheme") || "light");
 
   useEffect(() => {
@@ -275,7 +278,7 @@ function DashboardPage() {
               )}
               <h1 className={styles.boardTitle}>{currentBoard ? currentBoard.title : ""}</h1>
             </div>
-            <button type="button" className={styles.filterButton} title="Filters">
+            <button type="button" className={styles.filterButton} title="Filters" onClick={() => setIsFilterModalOpen(true)}>
               <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2">
                 <path d="M3 5h18L14 12.5V19l-4 2v-8.5L3 5z" />
               </svg>
@@ -304,6 +307,7 @@ function DashboardPage() {
                         column={col}
                         onEdit={handleEditColumn}
                         onDelete={() => handleDeleteColumn(col._id)}
+                        filterPriority={labelFilter}
                       />
                     )
                 )
@@ -343,6 +347,15 @@ function DashboardPage() {
           onClose={() => setIsDeleteModalToOpen(false)}
           onConfirm={confirmDeleteBoard}
           title="Delete board"
+        />
+      )}
+
+      {isFilterModalOpen && <FilterModal onClose={() => setIsFilterModalOpen(false)} />}
+      {isFilterModalOpen && (
+        <FilterModal
+          selectedFilter={labelFilter}
+          onSelectFilter={(val) => setLabelFilter(val)}
+          onClose={() => setIsFilterModalOpen(false)}
         />
       )}
     </div>

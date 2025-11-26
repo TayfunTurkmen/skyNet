@@ -142,3 +142,9 @@
   height: 100%;
   object-fit: cover;
 }
+
+.loadingFallback {
+  padding: 12px;
+  text-align: center;
+  color: var(--text-icon-color, #161616);
+}
