@@ -1,9 +1,11 @@
+import dotenv from "dotenv";
+dotenv.config();
 const express = require("express");
 const cors = require("cors");
 const morgan = require("morgan");
 const fs = require("fs");
 const path = require("path");
-require("dotenv").config();
+
 const swaggerUi = require("swagger-ui-express");
 const swaggerSpec = require("./swagger");
 
