@@ -18,6 +18,7 @@ import {
 import { createColumn, deleteColumn, fetchColumns, updateColumn } from "../../redux/slices/columnsSlice.js";
 import { AUTH_STORAGE_KEY, CLOUDINARY_BASE_URL } from "../../config";
 import styles from "./DashboardPage.module.css";
+import SvgIcon from "../../components/DashboardForm/SvgIcon";
 
 function DashboardPage() {
   const dispatch = useDispatch();
@@ -264,11 +265,16 @@ function DashboardPage() {
             backgroundSize: "cover",
             backgroundPosition: "center",
             backgroundRepeat: "no-repeat",
-            backgroundColor: bgImage ? "transparent" : "#f4f5fb",
+            backgroundColor: bgImage ? "transparent" : "var(--primary-bg-color, #f4f5fb)",
           }}
         >
           <div className={styles.boardTopBar}>
-            <h1 className={styles.boardTitle}>{currentBoard ? currentBoard.title : ""}</h1>
+            <div className={styles.boardTitleGroup}>
+              {currentBoard?.icon && (
+                <SvgIcon iconName={currentBoard.icon} size={22} className={styles.boardTitleIcon} />
+              )}
+              <h1 className={styles.boardTitle}>{currentBoard ? currentBoard.title : ""}</h1>
+            </div>
             <button type="button" className={styles.filterButton} title="Filters">
               <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2">
                 <path d="M3 5h18L14 12.5V19l-4 2v-8.5L3 5z" />
@@ -304,7 +310,7 @@ function DashboardPage() {
               )}
 
               <button className={styles.addColumnButton} onClick={() => setIsAddColumnModalOpen(true)} disabled={loadingColumns}>
-                <span className={styles.plusBox}>+</span>
+                <span className={styles.addColumnPlusBox}>+</span>
                 Add another column
               </button>
 

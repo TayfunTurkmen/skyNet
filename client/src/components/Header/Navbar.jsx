@@ -1,8 +1,10 @@
-import React, { useState } from "react";
+import React, { useEffect, useRef, useState } from "react";
 import styles from "./Navbar.module.css";
 
 function Navbar({ activeTheme = "light", onThemeChange, user }) {
   const [themeContent, setThemeContent] = useState(false);
+  const dropdownRef = useRef(null);
+  const buttonRef = useRef(null);
 
   const toggleThemeContent = () => {
     setThemeContent((v) => !v);
@@ -13,11 +15,25 @@ function Navbar({ activeTheme = "light", onThemeChange, user }) {
     setThemeContent(false);
   };
 
+  useEffect(() => {
+    const handleClickOutside = (e) => {
+      if (!themeContent) return;
+      const insideDropdown = dropdownRef.current?.contains(e.target);
+      const insideButton = buttonRef.current?.contains(e.target);
+      if (!insideDropdown && !insideButton) {
+        setThemeContent(false);
+      }
+    };
+
+    document.addEventListener("mousedown", handleClickOutside);
+    return () => document.removeEventListener("mousedown", handleClickOutside);
+  }, [themeContent]);
+
   return (
     <nav className={styles.navbarContainer}>
       <div className={styles.navbarMenu}>
         <div className={styles.themeSelector}>
-          <button className={styles.themeButton} onClick={toggleThemeContent} type="button">
+          <button ref={buttonRef} className={styles.themeButton} onClick={toggleThemeContent} type="button">
             <span className={styles.themeLabel}>Theme</span>
             <span className={styles.themeValue}>{activeTheme}</span>
             <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2">
@@ -25,7 +41,7 @@ function Navbar({ activeTheme = "light", onThemeChange, user }) {
             </svg>
           </button>
           {themeContent && (
-            <div className={styles.themeDropdown}>
+            <div className={styles.themeDropdown} ref={dropdownRef}>
               {["light", "violet", "dark"].map((opt) => (
                 <button
                   key={opt}

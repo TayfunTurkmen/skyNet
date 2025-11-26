@@ -50,9 +50,9 @@ const NeedHelp = () => {
         
         <div className={styles.helpLink}>
           <svg width="20" height="20" viewBox="0 0 20 20" fill="none" xmlns="http://www.w3.org/2000/svg">
-             <path d="M10 18.3333C14.6024 18.3333 18.3333 14.6023 18.3333 9.99996C18.3333 5.39759 14.6024 1.66663 10 1.66663C5.39763 1.66663 1.66667 5.39759 1.66667 9.99996C1.66667 14.6023 5.39763 18.3333 10 18.3333Z" stroke="white" strokeWidth="1.5" strokeLinecap="round" strokeLinejoin="round"/>
-             <path d="M7.56638 7.67567C7.80929 7.09826 8.38652 6.70225 9.01176 6.70225H9.26631C10.2369 6.70225 11.0237 7.48897 11.0237 8.45954C11.0237 9.43011 10.2369 10.2168 9.26631 10.2168V11.0547" stroke="white" strokeWidth="1.5" strokeLinecap="round" strokeLinejoin="round"/>
-             <path d="M9.25423 14H9.26257" stroke="white" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round"/>
+             <path d="M10 18.3333C14.6024 18.3333 18.3333 14.6023 18.3333 9.99996C18.3333 5.39759 14.6024 1.66663 10 1.66663C5.39763 1.66663 1.66667 5.39759 1.66667 9.99996C1.66667 14.6023 5.39763 18.3333 10 18.3333Z" stroke="currentColor" strokeWidth="1.5" strokeLinecap="round" strokeLinejoin="round"/>
+             <path d="M7.56638 7.67567C7.80929 7.09826 8.38652 6.70225 9.01176 6.70225H9.26631C10.2369 6.70225 11.0237 7.48897 11.0237 8.45954C11.0237 9.43011 10.2369 10.2168 9.26631 10.2168V11.0547" stroke="currentColor" strokeWidth="1.5" strokeLinecap="round" strokeLinejoin="round"/>
+             <path d="M9.25423 14H9.26257" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round"/>
           </svg>
           <span>Need help?</span>
         </div>

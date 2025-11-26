@@ -132,8 +132,8 @@
   align-items: center;
   width: 28px;
   height: 28px;
-  background-color: var(--text-icon-color, #161616);
-  color: var(--secondary-bg-color, #ffffff);
+  background-color: #ffffff;
+  color: #121212;
   border-radius: 6px;
   font-size: 14px;
   font-weight: bold;
@@ -154,6 +154,14 @@
 
 .btnPrimary:hover {
   background-color: var(--button-primary-hover, #9dc888);
+}
+
+:global(body.violet) .btnPrimary {
+  background-color: #5255bc;
+  color: #ffffff;
+}
+:global(body.violet) .btnPrimary:hover {
+  background-color: #5255bc;
 }
 
 /* Close Button */

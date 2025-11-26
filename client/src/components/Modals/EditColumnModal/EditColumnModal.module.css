@@ -21,7 +21,7 @@
   flex-direction: column;
   align-items: center;
   position: relative;
-  border: 1px solid #fcfcfc;
+  border: 1px solid var(--border-color, #fcfcfc);
 }
 
 .closeButton {
@@ -101,14 +101,19 @@
   transition: opacity 0.2s;
 }
 
+:global(body.violet) .editButton {
+  background: #5255bc;
+  color: #ffffff;
+}
+
 .editButton span {
   display: flex;
   align-items: center;
   justify-content: center;
   width: 18px;
   height: 18px;
-  background: var(--text-icon-color, #161616);
-  color: var(--secondary-bg-color, #fff);
+  background: #ffffff;
+  color: #121212;
   border-radius: 6px;
   font-size: 14px;
   font-weight: 600;

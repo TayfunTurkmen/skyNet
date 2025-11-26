@@ -1,6 +1,6 @@
 .container {
   width: 212px;
-  background: var(--sidebar-color, #1F1F1F);
+  background: var(--primary-bg-color, #1F1F1F);
   margin: 24px;
   padding: 20px;
   border-radius: 8px;
@@ -8,6 +8,11 @@
   color: var(--text-icon-color, #ffffff);
   font-family: sans-serif;
   box-sizing: border-box; /* Padding taşmasın */
+}
+
+:global(body.violet) .container {
+  background: #b8bcfd;
+  color: #161616;
 }
 
 .plantImage {
@@ -36,6 +41,17 @@
   text-decoration: none;
 }
 
+.helpLink svg {
+  color: var(--text-icon-color, #161616);
+  stroke: currentColor;
+  fill: none;
+}
+
+:global(body.light) .helpLink svg {
+  color: #161616;
+  stroke: #161616;
+}
+
 /* --- MODAL STİLLERİ --- */
 .modalBackdrop {
   position: fixed;
@@ -52,11 +68,15 @@
 
 .modalContent {
   width: 400px;
-  background-color: var(--surface-color, #151515);
+  background-color: var(--primary-bg-color, #f6f6f7);
   padding: 24px;
   border-radius: 8px;
   box-shadow: 0 10px 25px rgba(0,0,0,0.2);
-  color: var(--text-icon-color, #fff);
+  color: var(--text-icon-color, #161616);
+}
+
+:global(body.violet) .modalContent {
+  background-color: #b8bcfd;
 }
 
 .modalTitle {
@@ -68,10 +88,10 @@
 .input, .textarea {
   width: 100%;
   padding: 12px;
-  background-color: var(--surface-color, #1F1F1F);
+  background-color: var(--input-bg, #ffffff);
   border: 1px solid var(--border-color, #BEDBB0);
   border-radius: 8px;
-  color: var(--text-icon-color, #fff);
+  color: var(--text-icon-color, #161616);
   font-size: 14px;
   box-sizing: border-box;
   margin-bottom: 16px;

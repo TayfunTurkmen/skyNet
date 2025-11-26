@@ -23,6 +23,11 @@
   border: 1px solid var(--card-border);
 }
 
+:global(body.dark) .columnTitleContainer {
+  background-color: #121212;
+  border-color: #121212;
+}
+
 /* Başlık ve Butonlar Alanı */
 .columnHeader {
   display: flex;
@@ -147,4 +152,26 @@
 
 .addCardButton:hover {
   background-color: #9dc888;
+}
+
+.addCardPlusBox {
+  width: 28px;
+  height: 28px;
+  background-color: #121212;
+  color: #ffffff;
+  border-radius: 6px;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  font-weight: 600;
+  font-size: 16px;
+}
+
+:global(body.violet) .addCardButton {
+  background-color: #5255bc;
+  color: #ffffff;
+}
+:global(body.violet) .addCardPlusBox {
+  background-color: #ffffff;
+  color: #121212;
 }

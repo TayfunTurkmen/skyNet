@@ -55,3 +55,17 @@
 .active {
   color: var(--color-green-dark);
 }
+
+:global(body.violet) .customInput {
+  color: #5255bc;
+}
+:global(body.violet) .arrow {
+  color: #5255bc;
+}
+:global(body.violet) .customInput:hover,
+:global(body.violet) .customInput:active,
+:global(body.violet) .customInput:hover .arrow,
+:global(body.violet) .customInput:active .arrow,
+:global(body.violet) .customInput.active {
+  color: #5255bc;
+}

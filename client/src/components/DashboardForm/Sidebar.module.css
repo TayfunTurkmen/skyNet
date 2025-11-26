@@ -81,17 +81,18 @@
    display: flex;
    justify-content: center;
    align-items: center;
- }
+}
 .logoIcon {
    width: 20px;
    height: 20px;
-   fill: #121212;
+   fill: #ffffff;
+   color: #ffffff;
  }
 .appName {
-   font-size: 16px;
-   font-weight: 600;
-   color: var(--text-icon-color, #ffffff);
- }
+  font-size: 16px;
+  font-weight: 600;
+  color: var(--text-icon-color, #ffffff);
+}
 .boardsTitle {
    font-size: 12px;
    color: var(--sidebar-muted, rgba(255, 255, 255, 0.5));
@@ -140,10 +141,20 @@
  }
 .createButton:hover .plusIconBox {
    background-color: #9dc28d;
- }
+}
 .plusIconBox svg path {
    stroke: var(--button-primary-text, #121212);
- }
+}
+
+:global(body.violet) .createButton:hover .plusIconBox {
+   background-color: #ffffff;
+}
+:global(body.violet) .plusIconBox {
+   background-color: #ffffff;
+}
+:global(body.violet) .plusIconBox svg path {
+   stroke: #5255bc;
+}
 
 .boardList {
    display: flex;
@@ -174,22 +185,28 @@
    cursor: pointer;
    transition: background-color 0.2s;
    background-color: transparent;
- }
+}
 .boardItem:hover {
    background-color: rgba(0,0,0,0.08);
- }
+}
+.boardItem:hover .boardLink,
+.boardItem:hover .boardIcon {
+   color: var(--text-icon-color, #121212);
+   opacity: 1;
+}
 .boardLink {
    display: flex;
    align-items: center;
    gap: 8px;
    text-decoration: none;
-   color: rgba(255, 255, 255, 0.5);
+   color: var(--text-icon-color, #161616);
+   opacity: 0.75;
    font-size: 14px;
    font-weight: 500;
    flex: 1;
    min-width: 0;
    margin-right: 5px;
- }
+}
 .boardIcon {
    display: flex;
    align-items: center;
@@ -206,13 +223,14 @@
 
 .boardItem.active {
    background-color: rgba(0,0,0,0.08);
- }
+}
 .boardItem.active .boardLink {
    color: var(--text-icon-color, #ffffff);
- }
+   opacity: 1;
+}
 .boardItem.active .boardIcon {
    color: var(--text-icon-color, #ffffff);
- }
+}
 .boardItem.active::after {
    content: "";
    position: absolute;
@@ -222,7 +240,11 @@
    width: 4px;
    background-color: #BEDBB0;
    border-radius: 4px 0 0 4px;
- }
+}
+
+:global(body.violet) .boardItem.active::after {
+   background-color: #ffffff;
+}
 
 .actions {
    display: flex;
@@ -230,22 +252,22 @@
    gap: 4px;
    margin-left: auto;
    flex-shrink: 0;
- }
+}
 .actionBtn {
    background: none;
    border: none;
-   color: rgba(255, 255, 255, 0.5);
+   color: var(--text-icon-color, rgba(255, 255, 255, 0.5));
    cursor: pointer;
    padding: 4px;
    display: flex;
    align-items: center;
    justify-content: center;
    transition: color 0.2s, transform 0.1s;
- }
+}
 .actionBtn:hover {
-   color: #ffffff;
+   color: var(--text-icon-color, #121212);
    transform: scale(1.1);
- }
+}
 .favActive {
    color: #BEDBB0 !important;
    opacity: 1 !important;
@@ -280,8 +302,8 @@
   border: none;
   cursor: pointer;
   
-  /* YAZI RENGİ: Beyaz */
-  color: #ffffff; 
+  /* YAZI RENGİ */
+  color: var(--text-icon-color, #121212);
   
   font-size: 16px;
   font-weight: 600;
@@ -289,13 +311,46 @@
   transition: opacity 0.2s;
 }
 
-/* İKON RENGİ: Yeşil (#BEDBB0) */
-/* SvgIcon bileşeninin içindeki svg'yi hedefler */
+/* İKON RENGİ */
 .logoutButton svg {
-  color: #BEDBB0; 
+  color: #bedbb0;
 }
 
 /* Hover (Üzerine gelince) Efekti */
 .logoutButton:hover {
   opacity: 0.8; /* Hafifçe saydamlaşarak tepki verin */
+}
+
+/* ---- Violet Tema Özel ---- */
+:global(body.violet) .sidebar {
+  background-color: #5255bc;
+  color: #ffffff;
+}
+:global(body.violet) .logoBox {
+  background-color: #ecedfd;
+}
+:global(body.violet) .logoIcon {
+  fill: #5255bc;
+  color: #5255bc;
+}
+:global(body.violet) .appName,
+:global(body.violet) .boardsTitle {
+  color: #ffffff;
+}
+:global(body.violet) .createButton,
+:global(body.violet) .boardLink,
+:global(body.violet) .actionBtn {
+  color: rgba(255, 255, 255, 0.9);
+}
+:global(body.violet) .boardItem.active .boardLink,
+:global(body.violet) .boardItem.active .boardIcon,
+:global(body.violet) .boardItem:hover .boardLink,
+:global(body.violet) .boardItem:hover .boardIcon {
+  color: #ffffff;
+}
+:global(body.violet) .logoutButton {
+  color: #ffffff;
+}
+:global(body.violet) .logoutButton svg {
+  color: #ffffff;
 }

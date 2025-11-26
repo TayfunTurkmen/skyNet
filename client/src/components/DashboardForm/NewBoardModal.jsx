@@ -142,7 +142,7 @@ function NewBoardModal({ onClose, isEditMode = false, initialData = {}, onBoardC
                 className={`${styles.iconOption} ${selectedIcon === icon ? styles.selected : ""}`}
                 onClick={() => setSelectedIcon(icon)}
               >
-                <SvgIcon iconName={icon} size={18} />
+                <SvgIcon iconName={icon} size={18} fill="none" strokeWidth={2} />
               </div>
             ))}
           </div>
@@ -151,13 +151,19 @@ function NewBoardModal({ onClose, isEditMode = false, initialData = {}, onBoardC
           <div className={styles.backgroundGrid}>
             <div
               className={styles.bgOption}
-              style={{ backgroundColor: "#2a2a2a", display: "flex", alignItems: "center", justifyContent: "center" }}
+              style={{
+                backgroundColor: "var(--primary-bg-color, #1f1f1f)",
+                display: "flex",
+                alignItems: "center",
+                justifyContent: "center",
+                color: "var(--text-icon-color, #121212)",
+              }}
               onClick={() => fileInputRef.current.click()}
             >
               {uploading ? (
                 <span style={{ fontSize: "10px", color: "#888" }}>...</span>
               ) : (
-                <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="#fff" strokeWidth="2">
+                <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2">
                   <path d="M12 5v14M5 12h14" />
                 </svg>
               )}
@@ -176,7 +182,7 @@ function NewBoardModal({ onClose, isEditMode = false, initialData = {}, onBoardC
                 className={`${styles.bgOption} ${selectedBg === bgName ? styles.selected : ""}`}
                 onClick={() => setSelectedBg(bgName)}
                 style={{
-                  backgroundColor: bgName === "default" ? "#2a2a2a" : "transparent",
+                  backgroundColor: bgName === "default" ? "var(--primary-bg-color, #1f1f1f)" : "transparent",
                   backgroundImage:
                     bgName !== "default" ? `url(${CLOUDINARY_BASE_URL}/w_64,h_64,c_fill,q_auto/${bgName}.jpg)` : "none",
                   backgroundSize: "cover",

@@ -15,16 +15,13 @@
 }
 .modalContent {
   width: 350px;
-   max-width: 90%;
-   background-color: #151515;
-   padding: 24px;
-
+  max-width: 90%;
+  background-color: var(--surface-color, #151515);
+  padding: 24px;
   border-radius: 8px;
-   box-shadow: 0 10px 25px rgba(0, 0, 0, 0.5);
-
+  box-shadow: 0 10px 25px rgba(0, 0, 0, 0.5);
   position: relative;
-   color: #ffffff;
-
+  color: var(--text-icon-color, #ffffff);
 }
 .title { 
   margin: 0 0 24px 0;
@@ -40,7 +37,7 @@
   right: 14px;
   background: none;
   border: none;
-  color: #fff;
+  color: var(--text-icon-color, #161616);
   cursor: pointer; 
   opacity: 0.7; 
 }
@@ -50,10 +47,10 @@
 .input { width: 100%; 
   padding: 12px; 
   margin-bottom: 24px; 
-  background-color: #1F1F1F; 
-  border: 1px solid #BEDBB0; 
+  background-color: var(--input-bg, #ffffff); 
+  border: 1px solid var(--border-color, #BEDBB0); 
   border-radius: 8px; 
-  color: #fff; 
+  color: var(--text-icon-color, #161616); 
   font-size: 14px; 
   box-sizing: border-box; 
   outline: none; 
@@ -61,10 +58,11 @@
 .input:focus { 
   box-shadow: 0 0 0 1px #BEDBB0; 
 }
-.subTitle { font-size: 14px; 
-  font-weight: 600; 
-  margin-bottom: 14px; 
-  color: #fff; 
+.subTitle {
+  font-size: 14px;
+  font-weight: 600;
+  margin-bottom: 14px;
+  color: var(--text-icon-color, #fff);
 }
 .iconGroup { 
   display: flex; 
@@ -80,7 +78,7 @@
   justify-content: center; 
 }
 .iconOption.selected { 
-  color: #fff; 
+  color: var(--text-icon-color, #161616); 
   transform: scale(1.1); 
 }
 .backgroundGrid { 
@@ -129,4 +127,12 @@
   justify-content: center; 
   align-items: center; 
   color: #fff; 
+}
+:global(body.violet) .createButton {
+  background-color: #5255bc;
+  color: #ffffff;
+}
+:global(body.violet) .btnIconBox {
+  background-color: #ffffff;
+  color: #121212;
 }

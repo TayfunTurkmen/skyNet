@@ -97,7 +97,8 @@ function Column({ column, onEdit, onDelete }) {
       {/* Add Card Button */}
       <div className={styles.addCardButtonContainer}>
         <button onClick={() => setIsAddCardModalOpen(true)} className={styles.addCardButton}>
-          + Add another card
+          <span className={styles.addCardPlusBox}>+</span>
+          <span>Add another card</span>
         </button>
       </div>
 

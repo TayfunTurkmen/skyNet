@@ -41,6 +41,14 @@
   cursor: pointer;
   font-weight: 600;
   color: var(--text-icon-color, #121212);
+  transition: border-color 0.2s ease, box-shadow 0.2s ease, background-color 0.2s ease, color 0.2s ease;
+}
+
+.themeButton:hover,
+.themeButton:focus-visible {
+  border-color: var(--button-primary, #5255bc);
+  box-shadow: 0 0 0 2px rgba(82, 85, 188, 0.15);
+  color: var(--text-icon-color, #121212);
 }
 
 .themeLabel {
@@ -77,15 +85,25 @@
   text-align: left;
   cursor: pointer;
   color: var(--text-icon-color, #121212);
+  transition: background-color 0.2s ease, color 0.2s ease;
 }
 
 .themeOption:hover {
-  background: rgba(255, 255, 255, 0.08);
+  background: rgba(0, 0, 0, 0.05);
 }
 
 .themeOptionActive {
   font-weight: 700;
   background: var(--button-primary, #e8f0e5);
+}
+
+:global(body.dark) .themeOption:hover {
+  background: rgba(255, 255, 255, 0.08);
+}
+
+:global(body.violet) .themeOption:hover {
+  background: rgba(82, 85, 188, 0.12);
+  color: #161616;
 }
 
 /* Kullanıcı Profili */

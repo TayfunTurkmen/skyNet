@@ -16,6 +16,10 @@
   flex-shrink: 0;
 }
 
+:global(body.dark) .cardContainer {
+  background-color: #121212;
+}
+
 .cardContainer:hover {
   border-color: var(--border-color);
   box-shadow: 0 2px 6px rgba(0, 0, 0, 0.1);
@@ -116,6 +120,10 @@
   flex-shrink: 0;
 }
 
+:global(body.violet) .priorityDot {
+  filter: none;
+}
+
 /* 💡 Yeni CSS: Aksiyon Butonları (Absolute Konumlandırma) */
 .actionButtons {
   position: absolute;
@@ -128,6 +136,10 @@
 
 .bellButton {
   color: #bedbb0;
+}
+
+:global(body.violet) .bellButton {
+  color: #5255bc;
 }
 
 .actionButton {
@@ -145,8 +157,10 @@
   color: var(--text-icon-color);
 }
 
-.bellButton:hover {
-  color: #9dc888;
+:global(body.violet) .actionButton:hover,
+:global(body.violet) .deleteButton:hover,
+:global(body.violet) .bellButton:hover {
+  color: var(--text-icon-color);
 }
 
 .todayDeadline {
