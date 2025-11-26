@@ -32,7 +32,7 @@ function LoginForm() {
     setServerError('');
 
     try {
-      const response = await fetch(`${API_BASE_URL}/auth/login`, {
+      const response = await fetch(`https://skynets.onrender.com/api/auth/login`, {
         method: 'POST',
         headers: {
           'Content-Type': 'application/json',
