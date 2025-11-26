@@ -1,4 +1,4 @@
-import React, { useState, useEffect, useRef } from "react";
+import React, { useState, useEffect } from "react";
 import SvgIcon from "./SvgIcon";
 import styles from "./NewBoardModal.module.css";
 import api from "../../utils/api";
@@ -41,10 +41,7 @@ function NewBoardModal({ onClose, isEditMode = false, initialData = {}, onBoardC
   const [selectedBg, setSelectedBg] = useState(cleanInitialBg);
 
   const [loading, setLoading] = useState(false);
-  const [uploading, setUploading] = useState(false);
   const [error, setError] = useState("");
-
-  const fileInputRef = useRef(null);
 
   useEffect(() => {
     if (isEditMode && initialData) {
@@ -58,29 +55,6 @@ function NewBoardModal({ onClose, isEditMode = false, initialData = {}, onBoardC
       setSelectedBg(BACKGROUNDS[0]);
     }
   }, [isEditMode, initialData]);
-
-  const handleFileChange = async (e) => {
-    const file = e.target.files[0];
-    if (!file) return;
-
-    const formData = new FormData();
-    formData.append("image", file);
-
-    setUploading(true);
-    setError("");
-
-    try {
-      const res = await api.post("/boards/upload-bg", formData, {
-        headers: { "Content-Type": "multipart/form-data" },
-      });
-      setSelectedBg(res.data.bgId);
-    } catch (err) {
-      console.error("Upload error:", err);
-      setError("Image upload failed");
-    } finally {
-      setUploading(false);
-    }
-  };
 
   const handleSubmit = async (e) => {
     e.preventDefault();
@@ -158,22 +132,10 @@ function NewBoardModal({ onClose, isEditMode = false, initialData = {}, onBoardC
                 justifyContent: "center",
                 color: "var(--text-icon-color, #121212)",
               }}
-              onClick={() => fileInputRef.current.click()}
             >
-              {uploading ? (
-                <span style={{ fontSize: "10px", color: "#888" }}>...</span>
-              ) : (
-                <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2">
-                  <path d="M12 5v14M5 12h14" />
-                </svg>
-              )}
-              <input
-                type="file"
-                ref={fileInputRef}
-                style={{ display: "none" }}
-                accept="image/*"
-                onChange={handleFileChange}
-              />
+              <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2">
+                <path d="M12 5v14M5 12h14" />
+              </svg>
             </div>
 
             {BACKGROUNDS.map((bgName, index) => (
@@ -205,7 +167,7 @@ function NewBoardModal({ onClose, isEditMode = false, initialData = {}, onBoardC
 
           {error && <p className={styles.errorText}>{error}</p>}
 
-          <button type="submit" className={styles.createButton} disabled={loading || uploading}>
+          <button type="submit" className={styles.createButton} disabled={loading}>
             <div className={styles.btnIconBox}>+</div>
             {loading ? "Processing..." : isEditMode ? "Edit" : "Create"}
           </button>

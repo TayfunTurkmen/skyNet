@@ -4,6 +4,8 @@ const morgan = require("morgan");
 const fs = require("fs");
 const path = require("path");
 require("dotenv").config();
+const swaggerUi = require("swagger-ui-express");
+const swaggerSpec = require("./swagger");
 
 const helpRoutes = require("./routes/helpRoutes");
 const authRoutes = require("./routes/authRoutes");
@@ -44,6 +46,7 @@ app.use(cors(buildCorsConfig()));
 app.use(express.json({ limit: "1mb" }));
 app.use(morgan("dev"));
 app.use("/uploads", express.static(uploadsDir));
+app.use("/api-docs", swaggerUi.serve, swaggerUi.setup(swaggerSpec));
 
 app.use("/api/help", helpRoutes);
 app.use("/api/auth", authRoutes);

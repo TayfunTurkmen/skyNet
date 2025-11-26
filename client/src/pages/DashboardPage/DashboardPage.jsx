@@ -105,6 +105,7 @@ function DashboardPage() {
         dispatch(selectBoard(createdBoard._id));
         navigate(`/dashboard/${createdBoard._id}`, { replace: true });
       }
+      return createdBoard;
     } finally {
       setIsModalOpen(false);
     }
